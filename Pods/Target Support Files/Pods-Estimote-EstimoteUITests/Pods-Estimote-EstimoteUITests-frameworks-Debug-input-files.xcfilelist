@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-Estimote-EstimoteUITests/Pods-Estimote-EstimoteUITests-frameworks.sh
+${PODS_ROOT}/EstimoteBluetoothScanning/EstimoteBluetoothScanning/EstimoteBluetoothScanning.framework
+${PODS_ROOT}/EstimoteProximitySDK/EstimoteProximitySDK/EstimoteProximitySDK.framework
