@@ -1,36 +1,34 @@
 'use strict';
+
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('Contracts', {
+        return queryInterface.createTable('Photos', {
             id: {
                 type: Sequelize.INTEGER,
+                allowNull: false,
                 autoIncrement: true,
                 primaryKey: true
             },
-            userId: {
+
+            pleaceId: {
+                foreignKey: true,
                 type: Sequelize.INTEGER,
-                onDelete: 'CASCADE',
                 references: {
-                    model: 'Users',
+                    model: 'Pleaces',
                     key: 'id'
                 }
             },
-            duration: {
-                type: Sequelize.INTEGER,
+
+            url: {
+                type: Sequelize.STRING,
                 allowNull: false
             },
-            startDay: {
-                type: Sequelize.DATEONLY,
+
+            description: {
+                type: Sequelize.STRING,
                 allowNull: false
             },
-            stopDay: {
-                type: Sequelize.DATEONLY,
-                allowNull: true
-            },
-            freeDays: {
-                type: Sequelize.INTEGER,
-                allowNull: false
-            },
+
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
@@ -45,6 +43,6 @@ module.exports = {
     },
 
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('Contracts');
+        return queryInterface.dropTable('Photos');
     }
 };

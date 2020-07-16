@@ -45,9 +45,6 @@ module.exports = (sequelize, Sequelize) => {
             otherKey: 'roleId',
             onDelete: 'cascade'
         });
-        User.hasMany(db.Contract, {
-            as: 'contracts'
-        });
         User.hasMany(db.RecoverPassword, {
             as: 'recoverPasswords'
         });

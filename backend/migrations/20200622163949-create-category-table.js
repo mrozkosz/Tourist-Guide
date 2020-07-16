@@ -1,30 +1,20 @@
 'use strict';
+
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('UserRoles', {
+        return queryInterface.createTable('Categories', {
             id: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true
             },
-            roleId: {
-                foreignKey: true,
-                type: Sequelize.INTEGER,
-                references: {
-                    model: 'Roles',
-                    key: 'id'
-                }
+
+            name: {
+                type: Sequelize.STRING,
+                allowNull: false
             },
-            userId: {
-                foreignKey: true,
-                type: Sequelize.INTEGER,
-                onDelete: 'CASCADE',
-                references: {
-                    model: 'Users',
-                    key: 'id'
-                }
-            },
+
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
@@ -39,6 +29,6 @@ module.exports = {
     },
 
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('UserRoles');
+        queryInterface.dropTable('Categories');
     }
 };

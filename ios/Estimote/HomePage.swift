@@ -13,12 +13,15 @@ struct HomePage: View {
     @ObservedObject var Api = API()
     @ObservedObject var loader = ImageLoader(urlString: "https://via.placeholder.com/150/d32776")
     static var defaultImage = UIImage(named: "radar_blue")
+    var audio = AudioLoader(urlString: "https://file-examples.com/wp-content/uploads/2017/11/file_example_MP3_700KB.mp3")
     
     var body: some View {
         VStack{
             Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
                 .onAppear(
-                    perform: Api.get
+                    perform: Api.get,
+                    audio.loadAudio
+                    
             )
             UrlImageView(urlString: "https://via.placeholder.com/150/54176f")
                 .scaledToFit()

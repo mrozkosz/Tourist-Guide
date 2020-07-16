@@ -1,45 +1,29 @@
 'use strict';
-
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('VacationDays', {
+        return queryInterface.createTable('PleaceCategories', {
             id: {
                 type: Sequelize.INTEGER,
+                allowNull: false,
                 autoIncrement: true,
                 primaryKey: true
             },
-            userId: {
+            categorieId: {
+                foreignKey: true,
                 type: Sequelize.INTEGER,
-                onDelete: 'CASCADE',
                 references: {
-                    model: 'Users',
+                    model: 'Categories',
                     key: 'id'
                 }
             },
-            contractId: {
+            pleaceId: {
+                foreignKey: true,
                 type: Sequelize.INTEGER,
                 onDelete: 'CASCADE',
                 references: {
-                    model: 'Contracts',
+                    model: 'Pleaces',
                     key: 'id'
                 }
-            },
-            startDay: {
-                type: Sequelize.DATEONLY,
-                allowNull: false
-            },
-            stopDay: {
-                type: Sequelize.DATEONLY,
-                allowNull: true
-            },
-            days: {
-                type: Sequelize.INTEGER,
-                allowNull: false
-            },
-            isApproved: {
-                type: Sequelize.BOOLEAN,
-                allowNull: false,
-                defaultValue: 0
             },
             createdAt: {
                 allowNull: false,
@@ -55,6 +39,6 @@ module.exports = {
     },
 
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('VacationDays');
+        return queryInterface.dropTable('PleaceCategories');
     }
 };

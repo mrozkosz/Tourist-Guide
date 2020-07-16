@@ -26,7 +26,6 @@ const config = {
     },
     password: {
         expiresIn: env('JWT_RECOVER_EXPIRES_IN')
-
     },
     email: {
         host: env('EMAIL_HOST'),
@@ -39,7 +38,8 @@ const config = {
     },
     app: {
         frontendUrl: env('APP_FRONTEND_URL'),
-        appUrl: env('APP_URL')
+        appUrl: env('APP_URL'),
+        corsSites: env('APP_CORS_SITES', '')
     }
 };
 module.exports = config;

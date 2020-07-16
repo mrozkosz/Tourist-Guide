@@ -10,7 +10,7 @@ module.exports = (sequelize, Sequelize) => {
             foreignKey: true,
             type: Sequelize.INTEGER,
             references: {
-                model: 'Roles',
+                model: 'roles',
                 key: 'id'
             }
         },
@@ -19,7 +19,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             onDelete: 'CASCADE',
             references: {
-                model: 'Users',
+                model: 'users',
                 key: 'id'
             }
         }
