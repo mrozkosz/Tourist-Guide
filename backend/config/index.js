@@ -8,11 +8,6 @@ const isEnabled = (key) => env(key) && env(key) === 'true';
 const config = {
     db: {
         url: env('DATABASE_URL'),
-        host: env('DATABASE_HOST', 'localhost'),
-        name: env('DATABASE_NAME'),
-        username: env('DATABASE_USERNAME'),
-        password: env('DATABASE_PASSWORD'),
-        port: parseInt(env('DATABASE_PORT'), 27017),
         logging: isEnabled('SEQUELIZE_LOGGING') ? console.log : false,
         define: {
             charset: 'utf8mb4',

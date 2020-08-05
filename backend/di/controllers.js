@@ -1,5 +1,6 @@
 const { Reference } = require('node-dependency-injection');
 const AuthController = require('../controllers/AuthController');
+const BeaconController = require('../controllers/BeaconController');
 
 module.exports = (container) => {
     container
@@ -9,4 +10,9 @@ module.exports = (container) => {
             new Reference('services.sendEmailToRecoverPasswordHandler')
         )
         .addArgument(new Reference('repositories.recoverPassword'));
+
+    container
+        .register('controller.beacon', BeaconController)
+        .addArgument(new Reference('repositories.beacon'))
+        .addArgument(new Reference('repositories.pleace'));
 };

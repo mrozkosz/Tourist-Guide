@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  mysql-dev:
+    image: mysql:8.0.2
+    container_name: mysql.erp_system.docker
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: APPDB
+    ports:
+      - "3308:3306"
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres.erp_system.docker
+    environment:
+      POSTGRES_PASSWORD: password
+
+  redis:
+    image: redis:latest
+    container_name: redis.erp_system.docker
+    restart: unless-stopped
+    networks:
+      - global
+    ports:
+      - 127.0.0.1:6379:6379
+
+  mailcatcher:
+    image: schickling/mailcatcher
+    container_name: mailcatcher.erp_system.docker
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:1025:1025
+      - 127.0.0.1:1080:1080
+    networks:
+      - global
+
+networks:
+  global:
+    external: true
