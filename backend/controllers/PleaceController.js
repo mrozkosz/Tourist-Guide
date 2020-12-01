@@ -180,6 +180,7 @@ class PleaceController {
                     coverImage: 'wroclaw.jpg'
                 }
             ],
+
             categorie: [
                 {
                     id: 1,
