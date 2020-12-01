@@ -20,8 +20,9 @@ module.exports = (sequelize, Sequelize) => {
             otherKey: 'userId'
         });
     };
-    Role.ROLE_ADMIN = 'admin';
-    Role.ROLE_EMPLOYEE = 'employee';
+
+    Role.ADMIN = 'admin';
+    Role.USER = 'user';
 
     return Role;
 };

@@ -20,33 +20,24 @@ module.exports = {
             }
         });
 
-        await queryInterface
-            .bulkInsert(
-                'Users',
-                [
-                    {
-                        
-                        firstName: faker.name.firstName(),
-                        lastName: 'Admin',
-                        email: 'admin@erpsystem.test',
-                        password: bcrypt.hashSync('password', 12),
-                        phone: faker.phone.phoneNumber(),
-                        dayOfBirth: new Date(),
-                      
-                    },
-                    {
-                        
-                        firstName: faker.name.firstName(),
-                        lastName: 'User',
-                        email: 'user@erpsystem.test',
-                        password: bcrypt.hashSync('password', 12),
-                        phone: faker.phone.phoneNumber(),
-                        dayOfBirth: new Date(),
-                       
-                    }
-                ],
-                {}
-            );
+        await queryInterface.bulkInsert(
+            'Users',
+            [
+                {
+                    firstName: faker.name.firstName(),
+                    lastName: 'Admin',
+                    email: 'admin@wp.pl',
+                    password: bcrypt.hashSync('password', 12)
+                },
+                {
+                    firstName: faker.name.firstName(),
+                    lastName: 'User',
+                    email: 'user@wp.pl',
+                    password: bcrypt.hashSync('password', 12)
+                }
+            ],
+            {}
+        );
 
         const admin = await userRepository.findOne({
             where: {
@@ -65,6 +56,5 @@ module.exports = {
         await user.setRoles([userRole]);
     },
 
-    down: (queryInterface, Sequelize) => {
-    }
+    down: (queryInterface, Sequelize) => {}
 };

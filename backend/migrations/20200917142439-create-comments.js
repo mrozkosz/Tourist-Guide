@@ -1,35 +1,39 @@
 'use strict';
-
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable('Recordings', {
+        return queryInterface.createTable('Comments', {
             id: {
-                type: Sequelize.INTEGER,
                 allowNull: false,
                 autoIncrement: true,
-                primaryKey: true
+                primaryKey: true,
+                type: Sequelize.INTEGER
             },
-
+            userId: {
+                foreignKey: true,
+                type: Sequelize.INTEGER,
+                onDelete: 'CASCADE',
+                references: {
+                    model: 'Users',
+                    key: 'id'
+                }
+            },
             pleaceId: {
                 foreignKey: true,
                 type: Sequelize.INTEGER,
+                onDelete: 'CASCADE',
                 references: {
                     model: 'Pleaces',
                     key: 'id'
                 }
             },
-
-            url: {
-                type: Sequelize.STRING,
-                allowNull: false
+            message: {
+                type: Sequelize.STRING
             },
-
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
                 defaultValue: Sequelize.literal('NOW()')
             },
-
             updatedAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
@@ -37,8 +41,7 @@ module.exports = {
             }
         });
     },
-
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable('Recordings');
+        return queryInterface.dropTable('Comments');
     }
 };

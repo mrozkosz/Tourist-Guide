@@ -6,6 +6,33 @@ class BeaconController {
         this.pleaceRepository = pleaceRepository;
     }
 
+    async index(req, res) {
+        const {
+            perPage = 5,
+            page = 1,
+            sortBy = 'createdAt',
+            order = 'desc'
+        } = req.query;
+
+        const pageNumber = parseInt(page);
+        const limit = parseInt(perPage);
+
+        const offset = (pageNumber - 1) * limit;
+
+        const where = {};
+
+        const categories = await this.beaconRepository.findAndCountAll({
+            where,
+            offset,
+            limit,
+            order: [[sortBy, order]]
+        });
+
+        const totalPages = Math.ceil(categories.count / limit);
+
+        return res.send({ totalPages, data: categories.rows });
+    }
+
     async show(req, res) {
         const { body } = req;
 

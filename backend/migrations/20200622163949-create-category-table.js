@@ -20,7 +20,7 @@ module.exports = {
                 type: Sequelize.DATE,
                 defaultValue: Sequelize.literal('NOW()')
             },
-            
+
             updatedAt: {
                 allowNull: false,
                 type: Sequelize.DATE,
@@ -30,6 +30,6 @@ module.exports = {
     },
 
     down: (queryInterface, Sequelize) => {
-        queryInterface.dropTable('Categories');
+        return queryInterface.dropTable('Categories');
     }
 };

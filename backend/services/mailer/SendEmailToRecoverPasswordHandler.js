@@ -14,7 +14,7 @@ class SendEmailToRecoverPasswordHandler {
             subject: 'Recover password',
             text: '',
             html: `Use this url to reset password:
-                <br><a href='${recoverPasswordLink}'>LINK TO RECOVER PASSWORD</a>`
+                <br><h2>${hash}</h2>`
         });
     }
 }

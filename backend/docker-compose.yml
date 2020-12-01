@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+    mysql:
+        image: mysql:5.7
+        container_name: mysql.estimote.docker
+        restart: unless-stopped
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: estimote
+            MYSQL_USER: estimote
+            MYSQL_PASSWORD: estimote
+            MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+        volumes:
+            - ~/data/mysql.estimote.docker:/var/lib/mysql
+        ports:
+            - 127.0.0.1:3355:3306
+        networks:
+            - global
+
+    mailcatcher:
+        image: schickling/mailcatcher
+        container_name: mailcatcher.estimote.docker
+        restart: unless-stopped
+        ports:
+            - 127.0.0.1:1025:1025
+            - 127.0.0.1:1080:1080
+        labels:
+            traefik.frontend.rule: 'Host:mailcatcher.estimote.test'
+            traefik.port: '1080'
+        networks:
+            - global
+
+networks:
+    global:
+        external: true

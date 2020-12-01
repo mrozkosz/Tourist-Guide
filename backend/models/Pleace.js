@@ -7,7 +7,22 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true
         },
 
+        coverImage: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+
+        location: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+
         name: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+
+        description: {
             type: Sequelize.STRING,
             allowNull: false
         }
@@ -16,7 +31,14 @@ module.exports = (sequelize, Sequelize) => {
     Pleace.associate = (db) => {
         Pleace.hasMany(db.Photo, {
             as: 'photos',
-            foreignKey: 'pleaceId'
+            foreignKey: 'pleaceId',
+            onDelete: 'cascade'
+        });
+
+        Pleace.hasMany(db.Track, {
+            as: 'tracks',
+            foreignKey: 'pleaceId',
+            onDelete: 'cascade'
         });
     };
     return Pleace;

@@ -16,7 +16,6 @@ class SendEmailToNewUsersHandler {
             html: `Your new account has been created.
             First Name:${user.firstName},
             Last Name: ${user.lastName},
-            Day Of Birth: ${user.dayOfBirth}
             Click this :<br><a href='${recoverPasswordLink}'>LINK</a> to reset password.`
         });
     }

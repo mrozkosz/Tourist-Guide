@@ -15,6 +15,7 @@ module.exports = {
             pleaceId: {
                 foreignKey: true,
                 type: Sequelize.INTEGER,
+                onDelete: 'CASCADE',
                 references: {
                     model: 'Pleaces',
                     key: 'id'

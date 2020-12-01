@@ -13,10 +13,6 @@ module.exports = {
                 unique: true,
                 allowNull: false
             },
-            dayOfBirth: {
-                type: Sequelize.DATEONLY,
-                allowNull: false
-            },
             password: {
                 type: Sequelize.STRING,
                 allowNull: false
@@ -28,6 +24,10 @@ module.exports = {
             lastName: {
                 type: Sequelize.STRING,
                 allowNull: false
+            },
+            facebookId: {
+                type: Sequelize.STRING,
+                allowNull: true
             },
             createdAt: {
                 allowNull: false,

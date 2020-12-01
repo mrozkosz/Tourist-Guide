@@ -10,7 +10,7 @@ import SwiftUI
 
 class API: ObservableObject {
     func get() {
-        let url = URL(string: "https://jsonplaceholder.typicode.com/posts")
+        let url = URL(string: "http://192.168.1.213:3001/category/1")
         
         URLSession.shared.dataTask(with: url!) { (data, respons, error) in
             guard let unwrappedDAta = data else { print("Error unwrapping data"); return }
@@ -60,4 +60,10 @@ class API: ObservableObject {
     
     
     
+}
+
+struct Api_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+    }
 }

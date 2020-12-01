@@ -7,6 +7,7 @@ module.exports = async (req, res, next) => {
     if (token === null) {
         return false;
     }
+
     const decoded = decodeToken(token);
 
     if (decoded === null) {

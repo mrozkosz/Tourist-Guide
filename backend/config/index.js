@@ -17,7 +17,8 @@ const config = {
     },
     auth: {
         expiresIn: env('JWT_EXPIRES_IN'),
-        secretKey: env('JWT_SECRET_KEY')
+        secretKey: env('JWT_SECRET_KEY'),
+        refreshTokenExpiresIn: env('JWT_REFRESH_TOKEN_EXPIRES_IN')
     },
     password: {
         expiresIn: env('JWT_RECOVER_EXPIRES_IN')
@@ -35,6 +36,10 @@ const config = {
         frontendUrl: env('APP_FRONTEND_URL'),
         appUrl: env('APP_URL'),
         corsSites: env('APP_CORS_SITES', '')
+    },
+    imagerResizer: {
+        versions: [1440, 720, 480],
+        path: '../public/images'
     }
 };
 module.exports = config;

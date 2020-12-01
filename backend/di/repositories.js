@@ -3,6 +3,10 @@ const RecoverPasswordRepository = require('../repositories/RecoverPasswordReposi
 const RoleRepository = require('../repositories/RoleRepository');
 const BeaconRepository = require('../repositories/BeaconRepository');
 const PleaceRepository = require('../repositories/PleaceRepository');
+const CategoryRepository = require('../repositories/CategoryRepository');
+const PleaceCategoryRepository = require('../repositories/PleaceCategoryRepository');
+const RefreshTokenRepository = require('../repositories/RefreshTokenRepository');
+const CommentRepository = require('../repositories/CommentRepository');
 
 module.exports = (container) => {
     container.register('repositories.user', UserRepository);
@@ -17,4 +21,12 @@ module.exports = (container) => {
     container.register('repositories.beacon', BeaconRepository);
 
     container.register('repositories.pleace', PleaceRepository);
+
+    container.register('repositories.category', CategoryRepository);
+
+    container.register('repositories.pleaceCategory', PleaceCategoryRepository);
+
+    container.register('repositories.refreshToken', RefreshTokenRepository);
+
+    container.register('repositories.comment', CommentRepository);
 };

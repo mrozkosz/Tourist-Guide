@@ -13,10 +13,6 @@ module.exports = (sequelize, Sequelize) => {
                 unique: true,
                 allowNull: false
             },
-            dayOfBirth: {
-                type: Sequelize.DATEONLY,
-                allowNull: false
-            },
             password: {
                 type: Sequelize.STRING,
                 allowNull: false
@@ -28,6 +24,10 @@ module.exports = (sequelize, Sequelize) => {
             lastName: {
                 type: Sequelize.STRING,
                 allowNull: false
+            },
+            facebookId: {
+                type: Sequelize.STRING,
+                allowNull: true
             }
         },
         {
@@ -55,13 +55,13 @@ module.exports = (sequelize, Sequelize) => {
     User.prototype.isEmployee = async function () {
         const roles = await this.getRoles();
 
-        return roles.find((role) => role.name === Role.ROLE_EMPLOYEE);
+        return roles.find((role) => role.name === Role.USER);
     };
 
     User.prototype.isAdmin = async function () {
         const roles = await this.getRoles();
 
-        return roles.find((role) => role.name === Role.ROLE_ADMIN);
+        return roles.find((role) => role.name === Role.ADMIN);
     };
 
     return User;

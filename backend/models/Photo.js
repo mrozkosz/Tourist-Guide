@@ -34,6 +34,11 @@ module.exports = (sequelize, Sequelize) => {
             }
         }
     );
+    Photo.associate = (db) => {
+        Photo.belongsTo(db.Pleace, {
+            foreignKey: 'id'
+        });
+    };
 
     return Photo;
 };

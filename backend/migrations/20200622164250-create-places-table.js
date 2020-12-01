@@ -10,7 +10,22 @@ module.exports = {
                 primaryKey: true
             },
 
+            coverImage: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+
+            location: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+
             name: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+
+            description: {
                 type: Sequelize.STRING,
                 allowNull: false
             },
