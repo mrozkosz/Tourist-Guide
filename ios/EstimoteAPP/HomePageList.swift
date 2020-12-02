@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct HomePageList: View {
-    
+    @State var showModal:Bool = true
     
     init() {
         UITableView.appearance().tableFooterView = UIView()
@@ -19,7 +19,9 @@ struct HomePageList: View {
     
     var body: some View {
         NavigationView {
+            
             List(){
+                
                 if #available(iOS 14.0, *) {
                     LazyVStack{
                         GroupOfComponents()
@@ -28,18 +30,21 @@ struct HomePageList: View {
                     
                     GroupOfComponents()
                 }
+                
             }.navigationBarHidden(true)
-        }
-        .navigationBarTitle("Strona Główna")
+            
+        }.navigationBarTitle("Strona Główna")
+        
         
     }
 }
 
 struct GroupOfComponents: View {
     @ObservedObject var homePageVM = HomePageViewModel()
-    
+    @State var showModal:Bool = true
     
     var body: some View {
+        
         Group {
             
             MainPleaceCard(pleace: self.homePageVM.dailyModel)

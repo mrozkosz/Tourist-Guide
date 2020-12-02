@@ -31,6 +31,7 @@ class AuthService: ObservableObject {
     
     
     func login(email:String, password:String){
+        
         let url = URL(string: baseUrl + "/login")
         guard let requestUrl = url else { fatalError() }
         var request = URLRequest(url: requestUrl)

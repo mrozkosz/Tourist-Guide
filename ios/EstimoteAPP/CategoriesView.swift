@@ -36,7 +36,6 @@ struct CategoriesView: View {
         }
         .navigationBarTitle(categorie.name!)
     }
-    
 }
 
 struct CategoriesView_Previews: PreviewProvider {

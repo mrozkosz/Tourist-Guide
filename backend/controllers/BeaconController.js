@@ -34,13 +34,15 @@ class BeaconController {
     }
 
     async show(req, res) {
-        const { body } = req;
+        const { uuids } = req.body;
 
-        if (!Array.isArray(body)) {
+        if (!uuids) {
             return res.sendStatus(HttpStatuses.BAD_REQUEST);
         }
 
-        let uuid = [...new Set(body)];
+        const array = uuids.split(', ');
+
+        let uuid = [...new Set(array)];
 
         const pleaceIds = await this.beaconRepository.findAll({
             where: { uuid },

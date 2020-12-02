@@ -11,6 +11,8 @@ import SwiftUI
 
 struct SinglePleace: View {
     @ObservedObject var pleacesVM: PleacesViewModel
+    
+    
     var id:Int
     
     init(id:Int) {
@@ -26,7 +28,7 @@ struct SinglePleace: View {
         GeometryReader { geometry in
             ZStack{
                 VStack {
-                    
+            
                     ScrollView{
                         MainImage(width: geometry.size.width, data: self.pleacesVM.singlePleaceModel)
                         Group {
@@ -68,8 +70,8 @@ struct SinglePleace: View {
                     }
                     
                 }
-                
                 AudioPlayer(tracks: self.$pleacesVM.tracks)
+             
                 
             }.edgesIgnoringSafeArea(.top)
             .navigationBarHidden(true)

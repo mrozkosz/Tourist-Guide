@@ -8,7 +8,7 @@ module.exports = (di) => {
 
     router.get('/beacons', (...args) => beaconController.index(...args));
 
-    router.get('/beacons', (...args) => beaconController.show(...args));
+    router.post('/beacons/id', (...args) => beaconController.show(...args));
 
     router.post(
         '/beacons',

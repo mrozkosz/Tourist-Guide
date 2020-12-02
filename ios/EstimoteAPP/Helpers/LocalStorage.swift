@@ -27,6 +27,7 @@ class LocalStorage: ObservableObject {
            UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
        }
    }
+    
    
    init() {
        self.email = UserDefaults.standard.object(forKey: "email") as? String ?? ""

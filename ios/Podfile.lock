@@ -1,4 +1,7 @@
 PODS:
+  - EstimoteBluetoothScanning (1.0.8)
+  - EstimoteProximitySDK (1.7.0):
+    - EstimoteBluetoothScanning (~> 1.0.8)
   - FBSDKCoreKit (7.1.1):
     - FBSDKCoreKit/Basics (= 7.1.1)
     - FBSDKCoreKit/Core (= 7.1.1)
@@ -15,21 +18,26 @@ PODS:
     - FBSDKCoreKit (~> 7.1.1)
 
 DEPENDENCIES:
+  - EstimoteProximitySDK
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
 
 SPEC REPOS:
   trunk:
+    - EstimoteBluetoothScanning
+    - EstimoteProximitySDK
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FBSDKShareKit
 
 SPEC CHECKSUMS:
+  EstimoteBluetoothScanning: aef117c8584951609403dc73cb07f6501911a365
+  EstimoteProximitySDK: b0128f51c7487dbd3c073691cec246c8d733808c
   FBSDKCoreKit: b46507dc8b8cefed31d644e74d7cc30e2a715ef8
   FBSDKLoginKit: 1a61d79e2b25e2fc0d03dccab1e34b38bbdf2546
   FBSDKShareKit: 00a055c1999b099596e00212dd1c0600c6697019
 
-PODFILE CHECKSUM: ea3ece977a523c360306832d087c75aaadef8f54
+PODFILE CHECKSUM: 81df77ebab82def519b711af9908f0ce97c94cf4
 
 COCOAPODS: 1.9.3

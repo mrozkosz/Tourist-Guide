@@ -16,6 +16,12 @@
 		61070DF424FF9EC3001D432D /* EstimoteAPPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61070DF324FF9EC3001D432D /* EstimoteAPPTests.swift */; };
 		61070DFF24FF9EC3001D432D /* EstimoteAPPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61070DFE24FF9EC3001D432D /* EstimoteAPPUITests.swift */; };
 		61070E1124FFA12B001D432D /* GetRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61070E1024FFA12B001D432D /* GetRequests.swift */; };
+		610BD5D02576B2E70057109C /* BeaconDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610BD5CF2576B2E70057109C /* BeaconDetector.swift */; };
+		610BD5D52576B79B0057109C /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 610BD5D42576B79B0057109C /* ExternalAccessory.framework */; };
+		610BD5E42577A09E0057109C /* BottomCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610BD5E32577A09E0057109C /* BottomCard.swift */; };
+		610BD5F42577FA990057109C /* BeaconsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610BD5F32577FA990057109C /* BeaconsViewModel.swift */; };
+		610BD5F92577FBE90057109C /* BeaconsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610BD5F82577FBE90057109C /* BeaconsService.swift */; };
+		610BD60B25781E660057109C /* BeaconsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610BD60A25781E660057109C /* BeaconsModel.swift */; };
 		610F1CAA256FC23200FA5293 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610F1CA9256FC23200FA5293 /* CategoryViewModel.swift */; };
 		610F1CAF256FC36100FA5293 /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610F1CAE256FC36100FA5293 /* CategoryService.swift */; };
 		610F1CB42570008800FA5293 /* PleacesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610F1CB32570008800FA5293 /* PleacesService.swift */; };
@@ -95,6 +101,12 @@
 		61070DFE24FF9EC3001D432D /* EstimoteAPPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimoteAPPUITests.swift; sourceTree = "<group>"; };
 		61070E0024FF9EC3001D432D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		61070E1024FFA12B001D432D /* GetRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRequests.swift; sourceTree = "<group>"; };
+		610BD5CF2576B2E70057109C /* BeaconDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconDetector.swift; sourceTree = "<group>"; };
+		610BD5D42576B79B0057109C /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
+		610BD5E32577A09E0057109C /* BottomCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCard.swift; sourceTree = "<group>"; };
+		610BD5F32577FA990057109C /* BeaconsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconsViewModel.swift; sourceTree = "<group>"; };
+		610BD5F82577FBE90057109C /* BeaconsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconsService.swift; sourceTree = "<group>"; };
+		610BD60A25781E660057109C /* BeaconsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconsModel.swift; sourceTree = "<group>"; };
 		610F1CA9256FC23200FA5293 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		610F1CAE256FC36100FA5293 /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
 		610F1CB32570008800FA5293 /* PleacesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PleacesService.swift; sourceTree = "<group>"; };
@@ -146,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				610F1CC6257107C600FA5293 /* ImageViewer in Frameworks */,
+				610BD5D52576B79B0057109C /* ExternalAccessory.framework in Frameworks */,
 				61BB1B01250A32AD00F758B3 /* AVFoundation.framework in Frameworks */,
 				610F1CC4257107C600FA5293 /* ImageViewerRemote in Frameworks */,
 				DDF4A599781525AA3C78B5FA /* Pods_EstimoteAPP.framework in Frameworks */,
@@ -266,6 +279,7 @@
 				61379A5F256EAC3F002CB6F4 /* Webservices.swift */,
 				610F1CAE256FC36100FA5293 /* CategoryService.swift */,
 				610F1CB32570008800FA5293 /* PleacesService.swift */,
+				610BD5F82577FBE90057109C /* BeaconsService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -299,6 +313,7 @@
 				61379A7D256FB3A8002CB6F4 /* Home */,
 				617F34232504FDAE0025AF99 /* ActivityIndicator.swift */,
 				617F34122503DE080025AF99 /* TabBar */,
+				610BD5E32577A09E0057109C /* BottomCard.swift */,
 			);
 			name = components;
 			sourceTree = "<group>";
@@ -321,6 +336,7 @@
 				61379A78256ECBC3002CB6F4 /* HomePageViewModel.swift */,
 				610F1CA9256FC23200FA5293 /* CategoryViewModel.swift */,
 				610F1CB82570014A00FA5293 /* PleacesViewModel.swift */,
+				610BD5F32577FA990057109C /* BeaconsViewModel.swift */,
 			);
 			name = viewModel;
 			sourceTree = "<group>";
@@ -332,6 +348,7 @@
 				61379A73256ECA0E002CB6F4 /* HomePageModel.swift */,
 				61379A84256FBFBD002CB6F4 /* CategoryModel.swift */,
 				610F1CBD2570024800FA5293 /* PleacesModel.swift */,
+				610BD60A25781E660057109C /* BeaconsModel.swift */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -354,6 +371,7 @@
 				61BB1AFD250A2A9400F758B3 /* AudioLoader.swift */,
 				6120CB5C2517DBA00092D19A /* LocalStorage.swift */,
 				6120CB5E251898910092D19A /* UserSettings.swift */,
+				610BD5CF2576B2E70057109C /* BeaconDetector.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -380,6 +398,7 @@
 		61BB1AFF250A32AD00F758B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				610BD5D42576B79B0057109C /* ExternalAccessory.framework */,
 				61BB1B00250A32AD00F758B3 /* AVFoundation.framework */,
 				120629C9D1A160746D8CD0A1 /* Pods_EstimoteAPP.framework */,
 			);
@@ -570,6 +589,7 @@
 			files = (
 				61070DDD24FF9EC1001D432D /* AppDelegate.swift in Sources */,
 				617F341C2504E8A00025AF99 /* MainPleaceCard.swift in Sources */,
+				610BD5E42577A09E0057109C /* BottomCard.swift in Sources */,
 				617F34182503DE690025AF99 /* BottomBarItemView.swift in Sources */,
 				610F1CAF256FC36100FA5293 /* CategoryService.swift in Sources */,
 				61379A52256EAB4C002CB6F4 /* ArticleViewModel.swift in Sources */,
@@ -589,8 +609,10 @@
 				617F341A2504E7830025AF99 /* SearchInput.swift in Sources */,
 				611086FD25754F8B00F06B2D /* FavoriteButton.swift in Sources */,
 				61379A60256EAC3F002CB6F4 /* Webservices.swift in Sources */,
+				610BD5D02576B2E70057109C /* BeaconDetector.swift in Sources */,
 				61070DDF24FF9EC1001D432D /* SceneDelegate.swift in Sources */,
 				617F34162503DE4D0025AF99 /* BottomBarItem.swift in Sources */,
+				610BD60B25781E660057109C /* BeaconsModel.swift in Sources */,
 				61BB1AFC2509316600F758B3 /* SinglePleace.swift in Sources */,
 				6120CB5D2517DBA00092D19A /* LocalStorage.swift in Sources */,
 				6184ACDA257686A000806707 /* MapView.swift in Sources */,
@@ -608,6 +630,8 @@
 				6120CB5F251898910092D19A /* UserSettings.swift in Sources */,
 				61070DE124FF9EC1001D432D /* ContentView.swift in Sources */,
 				610F1CB92570014A00FA5293 /* PleacesViewModel.swift in Sources */,
+				610BD5F92577FBE90057109C /* BeaconsService.swift in Sources */,
+				610BD5F42577FA990057109C /* BeaconsViewModel.swift in Sources */,
 				617F34242504FDAE0025AF99 /* ActivityIndicator.swift in Sources */,
 				6114F32C251B6E2A007473FF /* RecoverPassword.swift in Sources */,
 				61379A79256ECBC3002CB6F4 /* HomePageViewModel.swift in Sources */,

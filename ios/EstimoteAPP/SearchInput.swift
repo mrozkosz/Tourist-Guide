@@ -13,7 +13,7 @@ struct SearchInput: View {
     @Binding var value:String
     var body: some View {
         
-     
+        VStack{
         TextField("Szukaj...", text:self.$value)
                 .padding(15)
                 .padding(.horizontal, 25)
@@ -43,7 +43,8 @@ struct SearchInput: View {
                 .onTapGesture {
                     self.editing = true
             }.padding()
-        
+            Spacer()
+        }
     }
 }
 
