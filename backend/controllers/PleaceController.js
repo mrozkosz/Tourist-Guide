@@ -2,7 +2,7 @@ const HttpStatuses = require('http-status-codes');
 const { Op } = require('sequelize');
 const config = require('../config');
 const mime = require('mime-types');
-const sharp = require('sharp');
+// const sharp = require('sharp');
 
 class PleaceController {
     constructor(pleaceRepository, pleaceCategoryRepository) {
@@ -137,9 +137,9 @@ class PleaceController {
         }
 
         versions.map((size) => {
-            sharp(image.data)
-                .resize({ width: size })
-                .toFile(`${path}/s${size}/${fileName}`);
+            // sharp(image.data)
+            //     .resize({ width: size })
+            //     .toFile(`${path}/s${size}/${fileName}`);
         });
 
         req.body.coverImage = fileName;
