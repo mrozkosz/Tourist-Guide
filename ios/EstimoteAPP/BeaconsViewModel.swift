@@ -11,6 +11,12 @@ import Combine
 import SwiftUI
 import EstimoteProximitySDK
 
+struct Content: Identifiable {
+    var id: String
+    let title: String
+    let subtitle: String
+}
+
 class BeaconsViewModel:NSObject,ObservableObject{
     
     static let shared = BeaconsViewModel()
@@ -36,6 +42,14 @@ class BeaconsViewModel:NSObject,ObservableObject{
         super.init()
         
         featchBeacons()
+    }
+    
+    func isVisible()->Bool{
+        if(beaconsModel.count != 0){
+            return true
+        }else{
+            return false
+        }
     }
     
     func featchBeacons(){

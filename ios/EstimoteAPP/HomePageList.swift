@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct HomePageList: View {
-    @State var showModal:Bool = true
+    
+    @ObservedObject var homePageVM = HomePageViewModel()
     
     init() {
         UITableView.appearance().tableFooterView = UIView()
@@ -20,28 +21,22 @@ struct HomePageList: View {
     var body: some View {
         NavigationView {
             
-            List(){
-                
-                if #available(iOS 14.0, *) {
-                    LazyVStack{
-                        GroupOfComponents()
+            ZStack{
+                ActivityIndicator(dataIsLoaded: .constant(homePageVM.dataIsLoaded)){
+                    ScrollView(){
+                        GroupOfComponents(homePageVM:homePageVM)
                     }
-                } else {
-                    
-                    GroupOfComponents()
                 }
-                
+                BottomCard()
+                ConnectionStatus()
             }.navigationBarHidden(true)
-            
-        }.navigationBarTitle("Strona Główna")
-        
-        
+        }
     }
 }
 
+
 struct GroupOfComponents: View {
-    @ObservedObject var homePageVM = HomePageViewModel()
-    @State var showModal:Bool = true
+    @ObservedObject var homePageVM:HomePageViewModel
     
     var body: some View {
         
@@ -52,7 +47,7 @@ struct GroupOfComponents: View {
             VStack(alignment: .leading){
                 Text("Najczęściej odwiedzane")
                     .font(.headline)
-                    .padding(.top,16)
+                    .padding([.leading,.top],16)
                 ScrollView(.horizontal, showsIndicators: true) {
                     HStack(spacing: 10){
                         ForEach(self.homePageVM.mostVisitedModel){ mv in
@@ -65,7 +60,7 @@ struct GroupOfComponents: View {
             VStack(alignment: .leading){
                 Text("Kategorie")
                     .font(.headline)
-                    .padding(.top,16)
+                    .padding([.leading,.top],16)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10){
                         ForEach(self.homePageVM.categorieModel){ categorie in

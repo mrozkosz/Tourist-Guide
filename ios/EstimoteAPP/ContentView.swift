@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 let items: [BottomBarItem] = [
     BottomBarItem(icon: "house.fill", title: "", color: .purple),
     BottomBarItem(icon: "heart", title: "", color: .pink),
@@ -67,6 +66,7 @@ struct ContentView : View {
 struct mainMenu: View {
     @State var network:AuthService
     @Binding var selectedIndex:Int
+   
     
     var body: some View {
         VStack{
@@ -78,7 +78,7 @@ struct mainMenu: View {
             
             if(self.selectedIndex == 1) {
                 
-                Text("Page 4")
+                FavoritesView()
             }
             
             if(self.selectedIndex == 2) {
@@ -86,20 +86,12 @@ struct mainMenu: View {
                 SearchPage()
             }
             
-            if(self.selectedIndex == 3) {
-                
-                
-            }
-            
             if(self.selectedIndex == 4) {
-                
+                ConnectionStatus()
                 
             }
             
-            if(self.selectedIndex == 5) {
-                
-                SinglePleace(id: 1)
-            }
+         
             
             
             Spacer()

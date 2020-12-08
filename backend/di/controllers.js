@@ -4,6 +4,7 @@ const BeaconController = require('../controllers/BeaconController');
 const CategoryController = require('../controllers/CategoryController');
 const PleaceController = require('../controllers/PleaceController');
 const CommentController = require('../controllers/CommentController');
+const FavoriteController = require('../controllers/FavoriteController');
 
 module.exports = (container) => {
     container
@@ -34,5 +35,10 @@ module.exports = (container) => {
     container
         .register('controller.comment', CommentController)
         .addArgument(new Reference('repositories.comment'))
+        .addArgument(new Reference('repositories.pleace'));
+
+    container
+        .register('controller.favorite', FavoriteController)
+        .addArgument(new Reference('repositories.favorite'))
         .addArgument(new Reference('repositories.pleace'));
 };

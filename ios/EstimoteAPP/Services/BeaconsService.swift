@@ -15,9 +15,6 @@ class BeaconsService
     func getData(beaconsUUIDs:[String], completion: @escaping([PleacesDataModel]) ->())
     {
         
-        
-    
-        
         let url = URL(string: baseUrl + "/beacons/id")
         guard let requestUrl = url else { fatalError() }
         var request = URLRequest(url: requestUrl)

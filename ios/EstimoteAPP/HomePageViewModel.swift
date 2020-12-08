@@ -25,6 +25,9 @@ class HomePageViewModel: ObservableObject {
         didSet { didChange.send() }
     }
     
+    @Published var dataIsLoaded = false
+    
+    
     init(){
         getMethod()
     }
@@ -38,6 +41,8 @@ class HomePageViewModel: ObservableObject {
                 self.mostVisitedModel = result.self.mostVisited
                 
                 self.categorieModel = result.self.categorie
+                
+                self.dataIsLoaded = true
             }
             
             

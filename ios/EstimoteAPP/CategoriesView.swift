@@ -15,8 +15,9 @@ struct CategoriesView: View {
     @State var isOpened = UserSettings.init().isOpened
     
     var body: some View {
-        VStack{
-            ZStack{
+       
+        
+            VStack{
                 List(self.categoryVM.categoryModel, id:\.id){ data in
                     ScrollView {
                         HStack{
@@ -30,16 +31,16 @@ struct CategoriesView: View {
                         }
                     }
                 }
+            }.onAppear{
+                self.categoryVM.getMethod(id: categorie.id!)
             }
-        }.onAppear{
-            self.categoryVM.getMethod(id: categorie.id!)
-        }
-        .navigationBarTitle(categorie.name!)
+            .navigationBarTitle(categorie.name!)
+        
     }
 }
 
 struct CategoriesView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoriesView(categorie: Category(id: 2, name: "ddddd"))
+        CategoriesView(categorie: Category(id: 1, name: "ddddd"))
     }
 }

@@ -17,8 +17,7 @@ struct SearchPage: View {
     
     var body: some View {
         NavigationView {
-            
-            
+        
             ZStack{
                 
                 ScrollView{
@@ -39,8 +38,7 @@ struct SearchPage: View {
                                     Text(data.location)
                                         .font(.title)
                                     Spacer()
-                                }.padding(.leading,16)
-                                .padding(.top,16)
+                                }.padding([.leading,.top],16)
                                 HStack {
                                     Text(data.name)
                                         .font(.subheadline)
@@ -68,9 +66,16 @@ struct SearchPage: View {
                                                 .aspectRatio(contentMode: .fill)
                                                 .scaledToFit()
                                             HStack {
-                                                Text(data.name).foregroundColor(.gray)
+                                                Text(data.location)
+                                                    .font(.title)
                                                 Spacer()
-                                            }
+                                            }.padding(.leading,16)
+                                          
+                                            HStack {
+                                                Text(data.name)
+                                                    .font(.subheadline)
+                                                Spacer()
+                                            }.padding(.leading,16)
                                         }.padding(5)
                                     }
                                 }
@@ -90,6 +95,8 @@ struct SearchPage: View {
                 } else {
                     // Fallback on earlier versions
                 }
+                
+                ConnectionStatus()
                 
             }.navigationBarHidden(true)
             

@@ -7,6 +7,7 @@ const CategoryRepository = require('../repositories/CategoryRepository');
 const PleaceCategoryRepository = require('../repositories/PleaceCategoryRepository');
 const RefreshTokenRepository = require('../repositories/RefreshTokenRepository');
 const CommentRepository = require('../repositories/CommentRepository');
+const FavoriteRepository = require('../repositories/FavoriteRepository');
 
 module.exports = (container) => {
     container.register('repositories.user', UserRepository);
@@ -29,4 +30,6 @@ module.exports = (container) => {
     container.register('repositories.refreshToken', RefreshTokenRepository);
 
     container.register('repositories.comment', CommentRepository);
+
+    container.register('repositories.favorite', FavoriteRepository);
 };
