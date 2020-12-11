@@ -32,5 +32,4 @@ app.use(routes);
 
 require('./plugins/cors')(app);
 
-const port = process.env.PORT || 3001;
-http.listen(port, () => console.log(`Working on port ${port}`));
+module.exports = app;

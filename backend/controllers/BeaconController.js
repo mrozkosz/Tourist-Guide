@@ -88,7 +88,7 @@ class BeaconController {
 
         await this.beaconRepository.create(req.body);
 
-        return res.send({
+        return res.status(HttpStatuses.CREATED).send({
             uuid,
             pleace
         });

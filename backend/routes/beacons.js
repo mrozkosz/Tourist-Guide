@@ -10,14 +10,17 @@ module.exports = (di) => {
         beaconController.index(...args)
     );
 
-    router.post('/beacons/detected', [isLoggedIn], (...args) =>
-        beaconController.show(...args)
+    router.post(
+        '/beacons/detected',
+        [isLoggedIn],
+        [beaconValidator.show, validate],
+        (...args) => beaconController.show(...args)
     );
 
     router.post(
         '/beacons',
         [isLoggedIn, isAdmin],
-        [beaconValidator, validate],
+        [beaconValidator.create, validate],
         (...args) => beaconController.create(...args)
     );
 

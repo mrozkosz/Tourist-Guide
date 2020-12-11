@@ -39,6 +39,11 @@ class UsersController {
 
     async show(req, res) {
         const { id } = req.params;
+        const { isAdmin, loggedUser } = req;
+
+        if (!isAdmin && loggedUser.id != id) {
+            return res.sendStatus(HttpStatuses.FORBIDDEN);
+        }
 
         const user = await this.userRepository.get(id);
 

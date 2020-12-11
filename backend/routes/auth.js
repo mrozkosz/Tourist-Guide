@@ -13,9 +13,11 @@ const tokenValidator = require('../validators/tokenValidator');
 module.exports = (di) => {
     const authController = di.get('controller.auth');
 
-    router.post('/me', [isLoggedIn], (...args) => authController.me(...args));
+    router.get('/me', [isLoggedIn], (...args) => authController.me(...args));
 
-    router.post('/login', (...args) => authController.login(...args));
+    router.post('/login', [emailValidator, validate], (...args) =>
+        authController.login(...args)
+    );
 
     router.post('/login/facebook', [tokenValidator, validate], (...args) =>
         authController.loginByFacebook(...args)

@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { isLoggedIn, isAdmin, validate } = require('../middleware');
+const {
+    isLoggedIn,
+    isAdmin,
+    adminIsNotRequired,
+    validate
+} = require('../middleware');
 const userValidator = require('../validators/userValidator');
 
 module.exports = (di) => {
@@ -10,7 +15,7 @@ module.exports = (di) => {
         userController.index(...args)
     );
 
-    router.get('/users/:id', [isLoggedIn, isAdmin], (...args) =>
+    router.get('/users/:id', [isLoggedIn, adminIsNotRequired], (...args) =>
         userController.show(...args)
     );
 

@@ -11,8 +11,10 @@ module.exports = async (req, res, next) => {
 
     const decoded = decodeToken(token);
 
-    if (!decoded) {
-        return res.status(401).send({ message: 'Invalid token' });
+    if (decoded === null) {
+        return res
+            .status(HttpStatuses.UNAUTHORIZED)
+            .send({ message: 'Invalid token' });
     }
 
     const user = await User.findOne({

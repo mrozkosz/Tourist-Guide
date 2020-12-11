@@ -1,7 +1,7 @@
 const { body } = require('express-validator');
 const { Pleace, Beacon } = require('../models');
 
-module.exports = [
+const create = [
     body(['pleaceId'])
         .trim()
         .not()
@@ -38,3 +38,12 @@ module.exports = [
             }
         })
 ];
+
+const show = [
+    body(['uuids']).trim().not().isEmpty().withMessage('should be not empty')
+];
+
+module.exports = {
+    create,
+    show
+};

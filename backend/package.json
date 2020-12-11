@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./app.js",
-    "server": "node ./app.js",
+    "start": "node ./index.js",
+    "server": "node ./index.js",
     "lint": "NODE_ENV=development eslint './src/**'",
-    "dev": "NODE_ENV=development nodemon ./app.js",
+    "dev": "NODE_ENV=development nodemon ./index.js",
     "db-undo-migrate": "./node_modules/.bin/sequelize db:migrate:undo:all",
     "db-migrate": "./node_modules/.bin/sequelize db:migrate",
     "db-seed": "./node_modules/.bin/sequelize db:seed:all",
@@ -56,8 +56,11 @@
     "ws": "^7.3.1"
   },
   "devDependencies": {
+    "jest": "^26.6.3",
     "nodemon": "^2.0.4",
+    "sequelize": "^4.44.4",
     "prettier": "2.0.5",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "supertest": "^6.0.1"
   }
 }

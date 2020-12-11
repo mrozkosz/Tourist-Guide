@@ -45,6 +45,12 @@ class FavoriteController {
         const { id } = req.params;
         const { loggedUser } = req;
 
+        const pleace = await this.pleaceRepository.findById(id);
+
+        if (!pleace) {
+            return res.sendStatus(HttpStatuses.NOT_FOUND);
+        }
+
         const favorite = await this.favoriteRepository.findOne({
             where: { pleaceId: id, userId: loggedUser.id }
         });

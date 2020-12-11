@@ -10,12 +10,10 @@ module.exports = async (req, res, next) => {
     const isAdmin = await req.loggedUser.isAdmin();
 
     if (!isAdmin) {
-        return res.status(HttpStatuses.FORBIDDEN).send({
-            message: 'You must be the admin user'
-        });
+        req.isAdmin = false;
+    } else {
+        req.isAdmin = true;
     }
-
-    req.isAdmin = true;
 
     return next();
 };
