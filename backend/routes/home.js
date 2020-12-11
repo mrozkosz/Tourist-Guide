@@ -9,11 +9,5 @@ module.exports = (di) => {
         homeController.index(...args)
     );
 
-    router.get('/test', (...args) => homeController.test(...args));
-
-    // router.put('/home', [isLoggedIn], (...args) =>
-    //     homeController.createOrUpdate(...args)
-    // );
-
     return router;
 };

@@ -9,11 +9,7 @@ class HomeController {
         this.categoryRepository = categoryRepository;
     }
 
-    async index(req, res) {
-        return res.send({ totalPages, data: categories.rows });
-    }
-
-    async test(req, res) {
+    async home(req, res) {
         const limit = 5;
         const mostVisited = await this.viewsRepository.findAll({
             attributes: [
