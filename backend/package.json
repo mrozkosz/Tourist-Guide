@@ -44,6 +44,7 @@
     "mongoose": "^5.9.16",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
+    "node-cron": "^2.0.3",
     "node-dependency-injection": "^2.6.3",
     "node-fetch": "^2.6.1",
     "node-image-resizer": "^1.0.0",
@@ -51,6 +52,7 @@
     "passport-facebook-token": "^4.0.0",
     "path": "^0.12.7",
     "sequelize": "^4.44.4",
+    "sharp": "^0.25.4",
     "ws": "^7.3.1"
   },
   "devDependencies": {

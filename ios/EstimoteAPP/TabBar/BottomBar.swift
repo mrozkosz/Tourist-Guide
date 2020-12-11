@@ -11,8 +11,6 @@ import SwiftUI
 struct BottomBar : View {
     @Binding var selectedIndex:Int
     @State var items:[BottomBarItem]
-    @EnvironmentObject var settings: UserSettings
-  
 
     var body: some View {
 
@@ -20,7 +18,6 @@ struct BottomBar : View {
             ForEach(0..<items.count) { index in
                 
                 Button(action: {
-                    self.settings.isOpened = false
                      self.selectedIndex = index
                 }) {
                     
@@ -38,6 +35,6 @@ struct BottomBar : View {
 
 struct BottomBar_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBar(selectedIndex: .constant(1), items: [BottomBarItem(icon: "search", title: "Ulubione", color: .purple)])
+        BottomBar(selectedIndex: .constant(1), items: [BottomBarItem(icon: "search", color: .purple)])
     }
 }

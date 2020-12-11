@@ -25,7 +25,6 @@ struct ActivityIndicator<Content>: View where Content: View {
         }else{
             ZStack(alignment: .center) {
                 Spinner(isAnimating: !self.dataIsLoaded, style:.large )
-                
             }
         }
         

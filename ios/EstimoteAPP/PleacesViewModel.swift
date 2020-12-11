@@ -30,7 +30,7 @@ class PleacesViewModel: ObservableObject {
     
     @Published var singlePleaceModel:SinglePleaceDataModel?
     
-
+    @Published var dataIsLoaded = false
     
     private var pleacesService: PleacesService!
     
@@ -62,8 +62,9 @@ class PleacesViewModel: ObservableObject {
                 let tracks:[Tracks] = result.self.tracks
                 
                 self.tracks = tracks.map(TracksObjectModel.init)
-           
                 
+                self.dataIsLoaded = true
+            
             }
         }
         

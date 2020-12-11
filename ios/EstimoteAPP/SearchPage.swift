@@ -17,7 +17,7 @@ struct SearchPage: View {
     
     var body: some View {
         NavigationView {
-        
+            
             ZStack{
                 
                 ScrollView{
@@ -26,7 +26,6 @@ struct SearchPage: View {
                         Text("Wyniki wyszukiwania")
                             .frame(alignment: .leading)
                             .font(.headline)
-                            
                             .foregroundColor(.gray)
                         Spacer()
                     }.padding()
@@ -70,7 +69,7 @@ struct SearchPage: View {
                                                     .font(.title)
                                                 Spacer()
                                             }.padding(.leading,16)
-                                          
+                                            
                                             HStack {
                                                 Text(data.name)
                                                     .font(.subheadline)

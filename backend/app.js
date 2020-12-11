@@ -4,6 +4,11 @@ const http = require('http').createServer(app);
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const wss = require('./plugins/webSocket')(http);
+const cron = require('node-cron');
+
+cron.schedule('* * * * *', () => {
+    console.log('running a task every minute');
+});
 
 const di = require('./di');
 

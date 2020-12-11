@@ -11,31 +11,27 @@ import SwiftUI
 struct CategoriesView: View {
     @State var categorie:Category
     @ObservedObject var categoryVM = CategoryViewModel()
-    @Environment(\.presentationMode) var presentationMode
-    @State var isOpened = UserSettings.init().isOpened
     
     var body: some View {
-       
         
-            VStack{
-                List(self.categoryVM.categoryModel, id:\.id){ data in
-                    ScrollView {
-                        HStack{
-                            NavigationLink(destination: SinglePleace(id: data.id)) {
-                                UrlImageView(urlString: data.daily.coverImage)
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width:50, height: 50)
-                                    .cornerRadius(10)
-                                Text(data.daily.name!)
-                            }
+        VStack{
+            List(self.categoryVM.categoryModel, id:\.id){ data in
+                ScrollView {
+                    HStack{
+                        NavigationLink(destination: SinglePleace(id: data.daily.id ?? 1)) {
+                            UrlImageView(urlString: data.daily.coverImage)
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width:50, height: 50)
+                                .cornerRadius(10)
+                            Text(data.daily.name!)
                         }
                     }
                 }
-            }.onAppear{
-                self.categoryVM.getMethod(id: categorie.id!)
             }
-            .navigationBarTitle(categorie.name!)
-        
+        }.onAppear{
+            self.categoryVM.getMethod(id: categorie.id!)
+        }
+        .navigationBarTitle(categorie.name!)
     }
 }
 

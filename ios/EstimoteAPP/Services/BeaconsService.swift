@@ -12,19 +12,19 @@ import Combine
 
 class BeaconsService
 {
+    @State private var storage = LocalStorage()
+    
     func getData(beaconsUUIDs:[String], completion: @escaping([PleacesDataModel]) ->())
     {
         
-        let url = URL(string: baseUrl + "/beacons/id")
+        let url = URL(string: baseUrl + "/beacons/detected")
         guard let requestUrl = url else { fatalError() }
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "POST"
-        
-        
-    
-        let postString = "uuids=\(beaconsUUIDs.joined(separator: ", "))";
-        
-        request.httpBody = postString.data(using: String.Encoding.utf8);
+
+        request.setValue("Bearer \(storage.token)", forHTTPHeaderField: "Authorization")
+        let params = "uuids=\(beaconsUUIDs.joined(separator: ", "))";
+        request.httpBody = params.data(using: String.Encoding.utf8);
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
      

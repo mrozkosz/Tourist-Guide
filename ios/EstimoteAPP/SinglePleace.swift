@@ -11,26 +11,29 @@ import MapKit
 import Combine
 
 struct SinglePleace: View {
-    @State var id:Int
     @ObservedObject var pleacesVM = PleacesViewModel()
     @ObservedObject var favoritesVM = FavoritesViewModel()
     @State var galleryIsVisible:Bool = false
+    @State var id:Int
+
     
     var width: CGFloat {
         return UIScreen.main.bounds.width
     }
     
     var body: some View {
-        GeometryReader { geometry in
+        
+        ActivityIndicator(dataIsLoaded: .constant(pleacesVM.dataIsLoaded)){
             ZStack{
-                VStack {
-                    
+                GeometryReader { geometry in
+                    MainImage(width: geometry.size.width, data: self.pleacesVM.singlePleaceModel)
                     ScrollView{
-                        MainImage(width: geometry.size.width, data: self.pleacesVM.singlePleaceModel)
-                        Group {
+                        VStack(alignment: .leading){
+                            
                             HStack() {
                                 Text(self.pleacesVM.singlePleaceModel?.name ?? "Name").padding()
-                                    .font(.system(size: 20, weight: .bold, design: .rounded))
+                                    .font(.title)
+                                    .foregroundColor(Color.gray)
                                 Spacer()
                                 
                                 Button(action: {
@@ -39,7 +42,7 @@ struct SinglePleace: View {
                                     
                                     Image(self.favoritesVM.favorite==1 ? "heart3":"heart1")
                                         .resizable()
-                                        .frame(width: 30, height: 30)
+                                        .frame(width: 20, height: 20)
                                         .padding()
                                         .overlay(
                                             RoundedRectangle(cornerRadius: 30)
@@ -47,58 +50,68 @@ struct SinglePleace: View {
                                         )
                                         .background(Color(red: 236/255, green: 234/255, blue: 235/255))
                                         .cornerRadius(30)
-                                        .padding([.leading, .trailing], 10)
+                                        .padding([.leading, .trailing], 20)
                                     
                                 }.shadow(color: Color(red: 192/255, green: 189/255, blue: 191/255), radius: 15, x: 0, y: 0)
                                 
                             }
-                        }
-                        
-                        Text(self.pleacesVM.singlePleaceModel?.description ?? "Description").padding()
-                        
-                        Group{
+                            
+                            Text(self.pleacesVM.singlePleaceModel?.description ?? "Description").padding()
+                                .foregroundColor(Color.gray)
+                            
+                            Group{
+                                HStack() {
+                                    Text("Galeria zdjęć")
+                                        .font(.headline)
+                                        .padding()
+                                    Spacer()
+                                }
+                                
+                                ForEach(0..<self.pleacesVM.photos.count, id:\.self){ index in
+                                    HStack{
+                                        
+                                        ForEach(self.pleacesVM.photos[index]){ image in
+                                            UrlImageView(urlString: image.url)
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(minWidth: 0, maxWidth: .infinity, minHeight:100, maxHeight:200)
+                                                .clipped()
+                                                .onTapGesture{
+                                                    self.galleryIsVisible = true
+                                                }
+                                        }
+                                    }
+                                    
+                                }.padding(.horizontal, 10)
+                            }
+                            
+                            
                             HStack() {
-                                Text("Galeria zdjęć")
+                                Text("Mapa")
                                     .font(.headline)
                                     .padding()
                                 Spacer()
                             }
                             
-                            ForEach(0..<self.pleacesVM.photos.count, id:\.self){ index in
-                                HStack{
-                                    
-                                    ForEach(self.pleacesVM.photos[index]){ image in
-                                        UrlImageView(urlString: image.url)
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(minWidth: 0, maxWidth: .infinity)
-                                            .clipped()
-                                            .onTapGesture{
-                                                self.galleryIsVisible = true
-                                            }
-                                    }
-                                }
-                                
-                            }.padding(.horizontal, 10)
-                        }
-                        
-                        HStack() {
-                            Text("Mapa")
-                                .font(.headline)
-                                .padding()
-                            Spacer()
-                        }
-                        
-                        
-                        
-                        Map(lat: 50.0, long: 19.0)
-                            .edgesIgnoringSafeArea(.all)
-                            .frame(width: geometry.size.width-25, height: 150, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                            .cornerRadius(30)
-                            .padding(.bottom, 100)
-                        
+                            
+                            
+                            Map(lat: 50.0, long: 19.0)
+                                .edgesIgnoringSafeArea(.all)
+                                .frame(width: geometry.size.width, height: 150, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                                .cornerRadius(30)
+                                .padding(.bottom, 300)
+                            
+                            
+                        }.frame(
+                            maxWidth: .infinity,
+                            maxHeight: .infinity,
+                            alignment: .topLeading
+                        )
+                        .background(Color("MainColor"))
+                        .cornerRadius(25)
+                        .offset(y:250)
                     }
-                    
                 }
+                
                 
                 AudioPlayer(tracks: self.$pleacesVM.tracks)
                 
@@ -106,7 +119,7 @@ struct SinglePleace: View {
                     ImageCarouselView(galleryIsVisible: self.$galleryIsVisible, numberOfImages: self.pleacesVM.photosCount, images: self.pleacesVM.photos)
                 }
                 
-            }.edgesIgnoringSafeArea(.top)
+            }.edgesIgnoringSafeArea(.all)
             
         }
         .onAppear{
@@ -116,6 +129,8 @@ struct SinglePleace: View {
     }
     
 }
+
+
 
 
 struct SinglePleace_Previews: PreviewProvider {

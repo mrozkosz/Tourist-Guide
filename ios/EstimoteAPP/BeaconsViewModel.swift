@@ -80,7 +80,7 @@ class BeaconsViewModel:NSObject,ObservableObject{
             self.beacons.removeAll { value in
                 return value == zoneContext.deviceIdentifier
             }
-            print( self.beacons)
+           
             self.getDataByQuery()
             
             self.nearbyContent.removeAll()
@@ -92,8 +92,14 @@ class BeaconsViewModel:NSObject,ObservableObject{
     public func getDataByQuery() {
         self.beaconsService.getData(beaconsUUIDs: self.beacons){ result in
             DispatchQueue.main.async {
-                
-                self.beaconsModel =  result.map(BeaconsObjectModel.init).chunked(into: 2)
+
+                if (result.count > 0){
+                    self.beaconsModel =  result.map(BeaconsObjectModel.init).chunked(into: 2)
+                   
+                }else{
+                    self.beaconsModel = []
+                   
+                }
             }
         }
     }

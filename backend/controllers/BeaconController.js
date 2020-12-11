@@ -70,8 +70,6 @@ class BeaconController {
         });
     }
 
-    async edit(req, res) {}
-
     async delete(req, res) {
         const { id } = req.params;
 

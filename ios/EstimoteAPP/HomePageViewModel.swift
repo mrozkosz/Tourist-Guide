@@ -15,13 +15,17 @@ class HomePageViewModel: ObservableObject {
     let didChange = PassthroughSubject<Void, Never>()
     
     
-    @Published var dailyModel: Pleace?
+    @Published var dailyModel: HomePagePleaceDetails?
     
-    @Published var mostVisitedModel = [Pleace](){
+    @Published var mostVisitedModel = [HomePagePleaceDetails](){
         didSet { didChange.send() }
     }
     
     @Published var categorieModel = [Category](){
+        didSet { didChange.send() }
+    }
+    
+    @Published var restPleaces = [HomePagePleaceDetails](){
         didSet { didChange.send() }
     }
     
@@ -42,7 +46,10 @@ class HomePageViewModel: ObservableObject {
                 
                 self.categorieModel = result.self.categorie
                 
+                self.restPleaces = result.self.restPleaces
+                
                 self.dataIsLoaded = true
+            
             }
             
             

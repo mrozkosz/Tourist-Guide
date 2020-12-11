@@ -6,9 +6,13 @@ const pleaceValidator = require('../validators/pleaceValidator');
 module.exports = (di) => {
     const pleaceController = di.get('controller.pleace');
 
-    router.get('/pleaces', (...args) => pleaceController.index(...args));
+    router.get('/pleaces', [isLoggedIn], (...args) =>
+        pleaceController.index(...args)
+    );
 
-    router.get('/pleaces/:id', (...args) => pleaceController.show(...args));
+    router.get('/pleaces/:id', [isLoggedIn], (...args) =>
+        pleaceController.show(...args)
+    );
 
     router.post(
         '/pleaces',
@@ -17,15 +21,16 @@ module.exports = (di) => {
         (...args) => pleaceController.create(...args)
     );
 
-    router.put('/pleaces/:id', [isLoggedIn, isAdmin], (...args) =>
-        pleaceController.update(...args)
+    router.put(
+        '/pleaces/:id',
+        [isLoggedIn, isAdmin],
+        [pleaceValidator.update, validate],
+        (...args) => pleaceController.update(...args)
     );
 
     router.delete('/pleaces/:id', [isLoggedIn, isAdmin], (...args) =>
         pleaceController.delete(...args)
     );
-
-    router.get('/test', (...args) => pleaceController.test(...args));
 
     return router;
 };

@@ -2,12 +2,13 @@ const HttpStatuses = require('http-status-codes');
 const { Op } = require('sequelize');
 const config = require('../config');
 const mime = require('mime-types');
-// const sharp = require('sharp');
+const sharp = require('sharp');
 
 class PleaceController {
-    constructor(pleaceRepository, pleaceCategoryRepository) {
+    constructor(pleaceRepository, pleaceCategoryRepository, viewsRepository) {
         this.pleaceRepository = pleaceRepository;
         this.pleaceCategoryRepository = pleaceCategoryRepository;
+        this.viewsRepository = viewsRepository;
     }
 
     async index(req, res) {
@@ -63,6 +64,8 @@ class PleaceController {
 
     async show(req, res) {
         const { id } = req.params;
+        const { id: userId } = req.loggedUser;
+        const { ip } = req;
 
         const pleace = await this.pleaceRepository.findOne({
             where: { id },
@@ -80,6 +83,29 @@ class PleaceController {
         if (!pleace) {
             return res.sendStatus(HttpStatuses.NOT_FOUND);
         }
+
+        const { id: pleaceId } = pleace;
+
+        const view = await this.viewsRepository.findOne({
+            where: {
+                pleaceId,
+                userId,
+                ip
+            }
+        });
+
+        if (!view) {
+            await this.viewsRepository.create({
+                pleaceId,
+                userId,
+                ip,
+                views: 1
+            });
+        }
+
+        const views = view.views + 1;
+
+        view.update({ views });
 
         return res.send({ results: pleace });
     }
@@ -137,9 +163,9 @@ class PleaceController {
         }
 
         versions.map((size) => {
-            // sharp(image.data)
-            //     .resize({ width: size })
-            //     .toFile(`${path}/s${size}/${fileName}`);
+            sharp(image.data)
+                .resize({ width: size })
+                .toFile(`${path}/s${size}/${fileName}`);
         });
 
         req.body.coverImage = fileName;

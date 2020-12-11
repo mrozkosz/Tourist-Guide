@@ -6,9 +6,13 @@ const categoryValidator = require('../validators/categoryValidator');
 module.exports = (di) => {
     const categoryController = di.get('controller.category');
 
-    router.get('/category', (...args) => categoryController.index(...args));
+    router.get('/category', [isLoggedIn], (...args) =>
+        categoryController.index(...args)
+    );
 
-    router.get('/category/:id', (...args) => categoryController.show(...args));
+    router.get('/category/:id', [isLoggedIn], (...args) =>
+        categoryController.show(...args)
+    );
 
     router.post(
         '/category',

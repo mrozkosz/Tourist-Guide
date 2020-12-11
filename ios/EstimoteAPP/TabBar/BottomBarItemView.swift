@@ -32,6 +32,6 @@ public struct BottomBarItemView: View {
 
 struct BottomBarItemView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarItemView(isSelected:true, item: BottomBarItem(icon: "search", title: "Szukaj", color: .orange))
+        BottomBarItemView(isSelected:true, item: BottomBarItem(icon: "search", color: .orange))
     }
 }

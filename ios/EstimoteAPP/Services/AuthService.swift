@@ -6,118 +6,97 @@
 //  Copyright © 2020 Mateusz. All rights reserved.
 //
 
-import Foundation
 
-struct AuthStructure: Hashable, Decodable{
-    let token:String
-    let refreshToken:String
-    let user:UserStructure
+import Foundation
+import Combine
+
+
+enum Result<T, E> {
+    case success(T)
+    case failure(E)
 }
 
-struct UserStructure: Hashable, Decodable, Identifiable{
-    let id:Int
-    let email:String
-    let firstName:String
-    let lastName:String
+enum ErrorResult: Error {
+    case network(string: String)
+    case parser(string: String)
+    case custom(ErrorString)
+    case errorMessages([ErrorMessages])
 }
 
 class AuthService: ObservableObject {
     var storage = LocalStorage()
-    @Published var UserData = [AuthStructure]()
-    @Published var isLoggedUser:Bool = false
+    
     @Published var isRecoverPasswordSend:Bool = false
     @Published var errorMessage:[String] = []
     @Published var passwordHasBeenChanged:Bool = false
     
     
-    func login(email:String, password:String){
+    func login(email:String, password:String, completion:  @escaping ((Result<LoginResponseModel, ErrorString>) -> Void)){
         
+        let postString = "email=\(email)&password=\(password)";
         let url = URL(string: baseUrl + "/login")
         guard let requestUrl = url else { fatalError() }
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "POST"
-        let postString = "email=\(email)&password=\(password)";
         request.httpBody = postString.data(using: String.Encoding.utf8);
+        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let dataResponse = data, error == nil else {return}
             
-            DispatchQueue.main.sync {
-                if let httpResponse = response as? HTTPURLResponse {
-                    self.errorMessage.removeAll()
-                    
-                    print(httpResponse.statusCode)
-                    
-                    if(httpResponse.statusCode != 200){
-                        self.errorMessage.append("Nieprawidłowy login lub hasło.")
-                    }
+            if let httpResponse = response as? HTTPURLResponse {
+                if(httpResponse.statusCode == 401){
+                    completion(Result.failure(ErrorString(errors: "Nieprawidłowy login lub hasło.")))
                 }
             }
             
-            
-            guard let unwrappedData = data else { print("Error unwrapping data"); return }
-            
-            
-            do {
-                let decodedData  = try JSONDecoder().decode(AuthStructure.self, from: unwrappedData)
+            do{
+                let decoder = JSONDecoder()
                 
-                DispatchQueue.main.sync {
-                    if(decodedData.token != ""){
-                        self.isLoggedUser = true
-                        self.storage.token = decodedData.token
-                        self.storage.refreshToken = decodedData.refreshToken
-                    }
+                let model:LoginResponseModel = try decoder.decode(LoginResponseModel.self, from: dataResponse)
+                
+                DispatchQueue.main.async {
+                    completion(Result.success(model))
                 }
                 
-            } catch {
-                print("Could not get API data.")
+            } catch _ {
             }
+            
         }.resume()
     }
     
     
-    func loginByFacebook(token:String){
-        let url = URL(string: baseUrl + "/login/facebook")
+    func me(token:String, completion:  @escaping ((Result<User, ErrorString>) -> Void)){
+        
+        let url = URL(string: baseUrl + "/me")
         guard let requestUrl = url else { fatalError() }
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "POST"
-        let postString = "token=\(token)";
-        request.httpBody = postString.data(using: String.Encoding.utf8);
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
         URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let dataResponse = data, error == nil else {return}
             
-            DispatchQueue.main.sync {
-                if let httpResponse = response as? HTTPURLResponse {
-                    self.errorMessage.removeAll()
-                    
-                    if(httpResponse.statusCode != 200){
-                        self.errorMessage.append("Ups, coś poszło nie tak.")
-                    }
+            if let httpResponse = response as? HTTPURLResponse {
+                if(httpResponse.statusCode == 401){
+                    completion(Result.failure(ErrorString(errors: "Unauthorized")))
                 }
             }
             
-            guard let unwrappedData = data else { print("Error unwrapping data"); return }
-            
-            do {
-                let decodedData  = try JSONDecoder().decode(AuthStructure.self, from: unwrappedData)
+            do{
+                let decoder = JSONDecoder()
                 
-                DispatchQueue.main.sync {
-                    if(decodedData.token != ""){
-                        self.isLoggedUser = true
-                        self.storage.token = decodedData.token
-                        self.storage.refreshToken = decodedData.refreshToken
-                        self.UserData.removeAll()
-                        self.UserData.append(AuthStructure(token: decodedData.token, refreshToken: decodedData.refreshToken,
-                                                           user: UserStructure(id: decodedData.user.id, email: decodedData.user.email,
-                                                                               firstName: decodedData.user.firstName, lastName: decodedData.user.lastName)))
-                    }
+                let model:User = try decoder.decode(User.self, from: dataResponse)
+                
+                DispatchQueue.main.async {
+                    completion(Result.success(model))
                 }
                 
-            } catch {
-                print("Could not get API data.")
-            }
+            } catch _ {}
+            
         }.resume()
     }
     
-    
-    func refreshToken(refreshToken:String){
+    func refreshToken(refreshToken:String, completion:  @escaping ((Result<LoginResponseModel, ErrorString>) -> Void)){
         
         let url = URL(string: baseUrl + "/refresh-token")
         guard let requestUrl = url else { fatalError() }
@@ -127,26 +106,118 @@ class AuthService: ObservableObject {
         request.httpBody = postString.data(using: String.Encoding.utf8);
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             
-            guard let unwrappedData = data else { print("Error unwrapping data"); return }
+            guard let dataResponse = data, error == nil else {return}
             
-            do {
-                let decodedData  = try JSONDecoder().decode(AuthStructure.self, from: unwrappedData)
+            if let httpResponse = response as? HTTPURLResponse {
+                if(httpResponse.statusCode == 401){
+                    completion(Result.failure(ErrorString(errors: "Unauthorized")))
+                }
+            }
+            
+            do{
+                let decoder = JSONDecoder()
+                
+                let model:LoginResponseModel = try decoder.decode(LoginResponseModel.self, from: dataResponse)
                 
                 DispatchQueue.main.async {
-                    if(decodedData.token != ""){
-                        self.isLoggedUser = true
-                        self.storage.token = decodedData.token
-                        self.storage.refreshToken = decodedData.refreshToken
-                    }
+                    completion(Result.success(model))
                 }
                 
-            } catch {
-                print("Could not get API data. \(error), \(error.localizedDescription)")
-            }
+            } catch _ {}
+            
         }.resume()
-        
-        
     }
+    
+    func loginByFacebook(token:String, completion:  @escaping ((Result<LoginResponseModel, ErrorString>) -> Void)){
+        
+        let url = URL(string: baseUrl + "/login/facebook")
+        guard let requestUrl = url else { fatalError() }
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "POST"
+        let postString = "token=\(token)";
+        request.httpBody = postString.data(using: String.Encoding.utf8);
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            
+            guard let dataResponse = data, error == nil else {return}
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                if(httpResponse.statusCode == 401){
+                    completion(Result.failure(ErrorString(errors: "Unauthorized")))
+                }
+            }
+            
+            do{
+                let decoder = JSONDecoder()
+                
+                let model:LoginResponseModel = try decoder.decode(LoginResponseModel.self, from: dataResponse)
+                
+                DispatchQueue.main.async {
+                    completion(Result.success(model))
+                }
+                
+            } catch _ {}
+        }.resume()
+    }
+    
+    
+    func signUp(user:RegisterUser, completion:  @escaping ((Result<User, [ErrorMessages]>) -> Void)){
+        
+        var jsonString = ""
+        
+        do {
+            let jsonData = try JSONEncoder().encode(user)
+            jsonString = String(data: jsonData, encoding: .utf8)!
+            
+        } catch {  }
+        
+        let url = URL(string: baseUrl + "/users")
+        guard let requestUrl = url else { fatalError() }
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "POST"
+        
+        // Set HTTP Request Header
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonString.data(using: String.Encoding.utf8);
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let decoder = JSONDecoder()
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                self.errorMessage.removeAll()
+                
+                guard let dataResponse = data, error == nil else {return}
+                
+                if(httpResponse.statusCode == 201){
+                    
+                    do{
+                        let model:User = try decoder.decode(User.self, from: dataResponse)
+                        
+                        DispatchQueue.main.async {
+                            completion(Result.success(model))
+                        }
+                        
+                    } catch _ {}
+                    
+                }else{
+                    
+                    do{
+                        let model:[ErrorMessages] = try decoder.decode(ErrorModel.self, from: dataResponse).errors
+                        
+                        DispatchQueue.main.async {
+                            completion(Result.failure(model))
+                        }
+                        
+                    } catch _ {}
+                    
+                }
+                
+            }
+            
+        }.resume()
+    }
+    
     
     func recoverPassword(email:String){
         let url = URL(string: baseUrl + "/recover-password")

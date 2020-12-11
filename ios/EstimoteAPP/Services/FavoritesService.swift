@@ -41,9 +41,7 @@ class FavoritesService
                     completion(model)
                 }
                 
-            } catch let error {
-                print("Error: \(error)")
-            }
+            } catch _ {}
         }.resume()
         
     }
@@ -74,9 +72,7 @@ class FavoritesService
                     completion(model)
                 }
                 
-            } catch let error {
-                print("Error: \(error)")
-            }
+            } catch _ {}
         }.resume()
         
     }
@@ -107,9 +103,7 @@ class FavoritesService
                     completion(model)
                 }
                 
-            } catch let error {
-                print("Error: \(error)")
-            }
+            } catch _ {}
         }.resume()
         
     }

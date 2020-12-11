@@ -9,7 +9,6 @@
 import Foundation
 import Combine
 
-class UserSettings: ObservableObject {
-    @Published var isLogged = false
-    @Published var isOpened = false
+class Settings: ObservableObject {
+    @Published var selectedPage = 0
 }

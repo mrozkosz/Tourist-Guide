@@ -51,7 +51,7 @@ struct GroupOfComponents: View {
                 ScrollView(.horizontal, showsIndicators: true) {
                     HStack(spacing: 10){
                         ForEach(self.homePageVM.mostVisitedModel){ mv in
-                            MostVisitedCard(mostVisited:mv)
+                            MostVisitedCard(mostVisited:mv, fullSize: .constant(false))
                         }
                     }.padding(.leading, 10)
                 }.frame(height:200)
@@ -70,6 +70,14 @@ struct GroupOfComponents: View {
                 }.frame(height:60)
                 
             }
+            
+            
+            VStack(alignment: .leading){
+                ForEach(self.homePageVM.restPleaces){ rp in
+                    MostVisitedCard(mostVisited:rp, fullSize: .constant(true)).padding(.top,5)
+                }
+            }
+            
             
         }
     }

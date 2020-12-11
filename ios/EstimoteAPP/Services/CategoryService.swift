@@ -13,10 +13,22 @@ import Combine
 
 class CategoryService
 {
+    
+    @State private var storage = LocalStorage()
+    
     func getDataById(id:Int, completion: @escaping([CategoryDataModel]) ->())
     {
-        let baseURL = URL(string: baseUrl + "/category/" + String(id))!
-        let task = URLSession.shared.dataTask(with: baseURL) { (data, response, error) in
+        
+        
+        let url = URL(string: baseUrl + "/category/" + String(id))
+        guard let requestUrl = url else { fatalError() }
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "GET"
+
+        request.setValue("Bearer \(storage.token)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+    
             guard let dataResponse = data,
                   error == nil else {
                 return }

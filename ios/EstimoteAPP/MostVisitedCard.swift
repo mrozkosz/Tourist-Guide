@@ -9,32 +9,25 @@
 import SwiftUI
 
 struct MostVisitedCard: View {
-    @State var mostVisited:Pleace?
-    @EnvironmentObject var settings: UserSettings
-    @State var isOpened = UserSettings.init().isOpened
+    @State var mostVisited:HomePagePleaceDetails?
+    @Binding var fullSize:Bool
     
     
     var width: CGFloat {
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return UIScreen.main.bounds.width * 0.8
-        } else {
-            return UIScreen.main.bounds.width * 0.3
-        }
+        let size = self.fullSize ? 0.95:0.8
+        return UIScreen.main.bounds.width * CGFloat(size)
     }
     
     var body: some View {
 
-        NavigationLink(destination: SinglePleace(id: self.mostVisited?.id ?? 1 ),isActive: $isOpened) {
+        NavigationLink(destination: SinglePleace(id: self.mostVisited?.id ?? 1 )) {
             UrlImageView(urlString: self.mostVisited?.coverImage)
                 .frame(width:width, height: 200)
                 .border(Color.gray.opacity(0.5), width: 0.5)
                 .cornerRadius(15)
                 .overlay(nameOverlay(name: mostVisited?.name ?? "name", location:mostVisited?.location ?? "location"))
                 .overlay(arrow())
-                .onTapGesture{
-                    self.settings.isOpened = true
-                    self.isOpened = true
-                }
+               
         }
     }
     
@@ -96,6 +89,6 @@ struct arrow: View {
 
 struct MostVisitedCard_Previews: PreviewProvider {
     static var previews: some View {
-        MostVisitedCard(mostVisited: Pleace(id: 1, coverImage: "RGq0aLUVqP4boCk.jpeg", location: "location", name: "xxx", description: "null"))
+        MostVisitedCard(mostVisited: HomePagePleaceDetails(id: 1, coverImage: "RGq0aLUVqP4boCk.jpeg", location: "location", name: "xxx"), fullSize: .constant(true))
     }
 }

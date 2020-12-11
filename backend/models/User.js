@@ -39,7 +39,7 @@ module.exports = (sequelize, Sequelize) => {
 
     User.associate = (db) => {
         User.belongsToMany(db.Role, {
-            as: 'roles',
+            as: 'Roles',
             through: 'UserRoles',
             foreignKey: 'userId',
             otherKey: 'roleId',
