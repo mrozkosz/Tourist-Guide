@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
+const config = require('./config');
 
 const di = require('./di');
 
@@ -17,7 +18,7 @@ app.use(bodyParser.json());
 
 app.use(fileUpload());
 
-app.use(express.static('../public'));
+app.use(express.static(config.public));
 
 const server = require('http').createServer(app);
 
