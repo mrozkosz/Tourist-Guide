@@ -40,7 +40,7 @@ const config = {
     },
     imagerResizer: {
         versions: [1440, 720, 480],
-        path: '../public/images'
+        path: env('PUBLIC_URL') + '/images'
     }
 };
 module.exports = config;
