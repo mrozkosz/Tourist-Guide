@@ -1,2 +1,0 @@
-# Estimote-APP
-# EngineeringThesis
