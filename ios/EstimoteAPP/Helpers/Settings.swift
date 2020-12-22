@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import MapKit
 
 class Settings: ObservableObject {
     @Published var selectedPage = 0

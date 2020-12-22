@@ -68,9 +68,13 @@ class AuthService: ObservableObject {
     func me(token:String, completion:  @escaping ((Result<User, ErrorString>) -> Void)){
         
         let url = URL(string: baseUrl + "/me")
+        
         guard let requestUrl = url else { fatalError() }
+        
         var request = URLRequest(url: requestUrl)
-        request.httpMethod = "POST"
+        
+        request.httpMethod = "GET"
+        
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
