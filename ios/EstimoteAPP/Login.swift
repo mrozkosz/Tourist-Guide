@@ -7,8 +7,6 @@
 //
 
 import SwiftUI
-//import Foundation
-//import Combine
 
 struct Login: View {
     @EnvironmentObject var settings:Settings

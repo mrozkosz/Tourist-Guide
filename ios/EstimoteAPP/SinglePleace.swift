@@ -13,9 +13,10 @@ import Combine
 struct SinglePleace: View {
     @ObservedObject var pleacesVM = PleacesViewModel()
     @ObservedObject var favoritesVM = FavoritesViewModel()
+    @State var showSheetView = false
     @State var galleryIsVisible:Bool = false
     @State var id:Int
-
+    
     
     var width: CGFloat {
         return UIScreen.main.bounds.width
@@ -85,26 +86,41 @@ struct SinglePleace: View {
                             }
                             
                             
-                            HStack() {
-                                Text("Mapa")
-                                    .font(.headline)
-                                    .padding()
-                                Spacer()
+                            //                            HStack() {
+                            //                                Text("Mapa")
+                            //                                    .font(.headline)
+                            //                                    .padding()
+                            //                                Spacer()
+                            //                            }
+                            
+                            //                            Map(lat: 50.0, long: 19.0)
+                            //                                .edgesIgnoringSafeArea(.all)
+                            //                                .frame(width: geometry.size.width, height: 150, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            //                                .cornerRadius(30)
+                            //                                .padding(.bottom, 300)
+
+                            NavigationLink(destination: Comments(id: self.$id)) {
+                                HStack{
+                                    Spacer()
+                                    Text("Opinie i Komentarze")
+                                        .padding(10)
+                                        .foregroundColor(Color.white)
+                                        .frame(width: 300, height: 50)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .stroke(lineWidth: 0)
+                                                .background(Color(red: 0.36, green: 0.42, blue: 0.87).cornerRadius(10))
+                                        )
+                                    Spacer()
+                                }
                             }
                             
-                            
-                            
-                            Map(lat: 50.0, long: 19.0)
-                                .edgesIgnoringSafeArea(.all)
-                                .frame(width: geometry.size.width, height: 150, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                                .cornerRadius(30)
-                                .padding(.bottom, 300)
-                            
-                            
-                        }.frame(
+                        }.padding(.bottom, 300)
+                        .frame(
                             maxWidth: .infinity,
                             maxHeight: .infinity,
                             alignment: .topLeading
+                            
                         )
                         .background(Color("MainColor"))
                         .cornerRadius(25)

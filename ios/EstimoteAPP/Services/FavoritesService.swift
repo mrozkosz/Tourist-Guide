@@ -17,7 +17,6 @@ class FavoritesService
     
     func getAllData(completion: @escaping([FavoritesDataModel]) ->())
     {
-        
         let url = URL(string: baseUrl + "/favorites")
         guard let requestUrl = url else { fatalError() }
         var request = URLRequest(url: requestUrl)
@@ -43,7 +42,6 @@ class FavoritesService
                 
             } catch _ {}
         }.resume()
-        
     }
     
     func getById(id:Int, completion: @escaping(Favorite) ->())

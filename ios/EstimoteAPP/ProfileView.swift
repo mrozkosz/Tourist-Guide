@@ -8,9 +8,11 @@
 
 import SwiftUI
 
+
 struct ProfileView: View {
     @EnvironmentObject var settings:Settings
     @ObservedObject var authVM:AuthViewModel
+ 
     var storage = LocalStorage()
     
     var body: some View {
@@ -30,6 +32,7 @@ struct ProfileView: View {
                     self.logout()
                 }
                 
+
             }.frame(
                 maxWidth: .infinity,
                 maxHeight: .infinity,

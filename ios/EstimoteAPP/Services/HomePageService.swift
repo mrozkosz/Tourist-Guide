@@ -13,10 +13,23 @@ import Combine
 
 class HomePageService
 {
+    @State private var storage = LocalStorage()
+    
     func getAllData(completion: @escaping(HomePageResponseModel) ->())
     {
-        let baseURL = URL(string: baseUrl + "/test")!
-        let task = URLSession.shared.dataTask(with: baseURL) { (data, response, error) in
+     
+        
+        let url = URL(string: baseUrl + "/home")
+        
+        guard let requestUrl = url else { fatalError() }
+        
+        var request = URLRequest(url: requestUrl)
+        
+        request.httpMethod = "GET"
+
+        request.setValue("Bearer \(storage.token)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
         guard let dataResponse = data,
                   error == nil else {
                   return }

@@ -29,6 +29,9 @@ class AuthViewModel: ObservableObject {
                     
                     if(converter.refreshToken != ""){
                         self.isLoggedUser = true
+                        self.storage.refreshToken = converter.refreshToken
+                        self.storage.token = converter.token
+                        self.storage.email = converter.user.email
                     }
                     
                 case .failure( let e) :
@@ -86,7 +89,6 @@ class AuthViewModel: ObservableObject {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let converter) :
-                    
                     if(converter.email != ""){
                         self.isLoggedUser = true
                         self.firstName = converter.firstName

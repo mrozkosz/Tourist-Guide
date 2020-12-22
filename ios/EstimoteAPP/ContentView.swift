@@ -12,6 +12,7 @@ let items: [BottomBarItem] = [
     BottomBarItem(icon: "house.fill", color: .purple),
     BottomBarItem(icon: "heart", color: .pink),
     BottomBarItem(icon: "magnifyingglass", color: .orange),
+    BottomBarItem(icon: "map", color: .green),
     BottomBarItem(icon: "person.fill", color: .blue)
 ]
 
@@ -21,7 +22,7 @@ struct ContentView : View {
     @EnvironmentObject var settings:Settings
     
     init() {
-        self.checkIsLogged()
+        self.network.isLogged()
     }
     
     @ViewBuilder
@@ -51,10 +52,6 @@ struct ContentView : View {
     func simpleSuccess() {
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.warning)
-    }
-    
-    func checkIsLogged(){
-        self.network.isLogged()
     }
 }
 
@@ -105,13 +102,13 @@ struct mainMenu: View {
             }
             
             if(self.selectedIndex == 3) {
-                ProfileView(authVM: authVM)
+                MapView()
                 
             }
             
-            if(self.selectedIndex == 4) {
-                SignUp(authVM: authVM)
+            if(self.selectedIndex == 4){
                 
+                ProfileView(authVM: authVM)
             }
             
             Spacer()
