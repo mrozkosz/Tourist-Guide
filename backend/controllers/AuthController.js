@@ -30,7 +30,9 @@ class AuthController {
             return res.sendStatus(HttpStatuses.UNAUTHORIZED);
         }
 
-        const JWTtoken = jwt.sign({ user }, secretKey, {
+        const { id, email: userEmail } = user;
+
+        const JWTtoken = jwt.sign({ id, userEmail }, secretKey, {
             expiresIn
         });
 
@@ -86,7 +88,9 @@ class AuthController {
             return res.sendStatus(HttpStatuses.UNAUTHORIZED);
         }
 
-        const JWTtoken = jwt.sign({ user }, secretKey, {
+        const { id, email: userEmail } = user;
+
+        const JWTtoken = jwt.sign({ id, userEmail }, secretKey, {
             expiresIn
         });
 
@@ -115,7 +119,9 @@ class AuthController {
         const { user } = req.refreshToken;
         const recover = req.refreshToken;
 
-        const JWTtoken = jwt.sign({ user }, secretKey, {
+        const { id, email: userEmail } = user;
+
+        const JWTtoken = jwt.sign({ id, userEmail }, secretKey, {
             expiresIn
         });
 

@@ -8,6 +8,8 @@
 
 import SwiftUI
 import EstimoteProximitySDK
+import Combine
+
 struct Content: Identifiable {
     var id: String
     let title: String
@@ -19,6 +21,13 @@ class BeaconDetector:NSObject,ObservableObject{
     @Published var nearbyContent = [Content]()
     @Published var estimoteCloudCredentials:CloudCredentials!
     @Published var zone:ProximityZone!
+    
+        let didChange = PassthroughSubject<Void, Never>()
+    
+        @Published var beacons = [BeaconObjectModel](){
+            didSet { didChange.send() }
+        }
+    
     override init(){
         super.init()
         self.estimoteCloudCredentials = CloudCredentials(appID: "mateuszrozkosz97-gmail-com-72t", appToken: "6a801bf31ca12adff113be06414b9e2d")
@@ -30,13 +39,14 @@ class BeaconDetector:NSObject,ObservableObject{
         self.zone = ProximityZone(tag: "mateuszrozkosz97-gmail-com-72t", range: ProximityRange(desiredMeanTriggerDistance: 0.5)!)
         
         self.zone.onContextChange = { contexts in
-         
-            for i in contexts {
-                print("xxxxxx - ",i.deviceIdentifier)
-                let id = i.deviceIdentifier
-                let title = i.attachments["mateuszrozkosz97-gmail-com-72t/title"]
-                self.nearbyContent.append(Content(id: id, title:title ?? "null", subtitle: id))
-            }
+            
+                        self.beacons = contexts.map(BeaconObjectModel.init)
+                        for i in contexts {
+                            print("xxxxxx - ",i.deviceIdentifier)
+                            let id = i.deviceIdentifier
+                            let title = i.attachments["mateuszrozkosz97-gmail-com-72t/title"]
+                            self.nearbyContent.append(Content(id: id, title:title ?? "null", subtitle: id))
+                        }
         }
         
         self.zone.onExit = { zoneContext in
@@ -46,3 +56,27 @@ class BeaconDetector:NSObject,ObservableObject{
         proximityObserver.startObserving([self.zone])
     }
 }
+
+struct BeaconObjectModel {
+
+    var beacon: ProximityZoneContext
+
+    init(beacon: ProximityZoneContext){
+        self.beacon = beacon
+    }
+
+    var id: String {
+        return self.beacon.deviceIdentifier
+    }
+
+    var tag: String{
+        return self.beacon.tag
+    }
+
+    var name: String{
+        return self.beacon.attachments["mateuszrozkosz97-gmail-com-72t/title"] ?? "nil"
+    }
+
+
+}
+

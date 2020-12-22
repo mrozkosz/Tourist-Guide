@@ -20,12 +20,6 @@ public struct BottomBarItemView: View {
                 .frame(width:20, height:20)
                 .imageScale(.large)
                 .foregroundColor(isSelected ? item.color : .primary)
-            
-            if isSelected {
-                Text(item.title)
-                    .foregroundColor(item.color)
-                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-            }
         }
         .padding(12)
         .background(
@@ -38,6 +32,6 @@ public struct BottomBarItemView: View {
 
 struct BottomBarItemView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarItemView(isSelected:true, item: BottomBarItem(icon: "search", title: "Szukaj", color: .orange))
+        BottomBarItemView(isSelected:true, item: BottomBarItem(icon: "search", color: .orange))
     }
 }

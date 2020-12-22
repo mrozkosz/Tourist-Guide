@@ -1,4 +1,5 @@
 const { User } = require('../models');
+const HttpStatuses = require('http-status-codes');
 const decodeToken = require('../helpers/decodeToken');
 
 module.exports = async (req, res, next) => {
@@ -11,10 +12,23 @@ module.exports = async (req, res, next) => {
     const decoded = decodeToken(token);
 
     if (decoded === null) {
-        return res.status(401).send({ message: 'Invalid token' });
+        return res
+            .status(HttpStatuses.UNAUTHORIZED)
+            .send({ message: 'Invalid token' });
     }
 
-    req.loggedUser = await User.findByPk(decoded.user.id);
+    const user = await User.findOne({
+        where: {
+            id: decoded.id,
+            email: decoded.userEmail
+        }
+    });
+
+    if (!user) {
+        return res.sendStatus(HttpStatuses.UNAUTHORIZED);
+    }
+
+    req.loggedUser = user;
 
     return next();
 };

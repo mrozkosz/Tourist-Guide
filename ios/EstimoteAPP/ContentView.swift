@@ -8,40 +8,43 @@
 
 import SwiftUI
 
-
 let items: [BottomBarItem] = [
-    BottomBarItem(icon: "house.fill", title: "Home", color: .purple),
-    BottomBarItem(icon: "heart", title: "Likes", color: .pink),
-    BottomBarItem(icon: "magnifyingglass", title: "Search", color: .orange),
-    BottomBarItem(icon: "person.fill", title: "Radar", color: .green),
-    BottomBarItem(icon: "person.fill", title: "Profile", color: .blue)
+    BottomBarItem(icon: "house.fill", color: .purple),
+    BottomBarItem(icon: "heart", color: .pink),
+    BottomBarItem(icon: "magnifyingglass", color: .orange),
+    BottomBarItem(icon: "person.fill", color: .blue)
 ]
 
 struct ContentView : View {
-    @ObservedObject var network = AuthService()
-    var storage = LocalStorage()
-    @State private var selectedIndex: Int = 0
-    
+    @ObservedObject var network = AuthViewModel()
+    @State private var storage = LocalStorage()
+    @EnvironmentObject var settings:Settings
     
     init() {
         self.checkIsLogged()
     }
     
-    
     @ViewBuilder
     var body: some View {
+        
         if #available(iOS 14.0, *) {
+            
             if(self.network.isLoggedUser){
-                mainMenu(network:network, selectedIndex:$selectedIndex).ignoresSafeArea(.keyboard, edges: .bottom)
+                mainMenu( authVM: network, selectedIndex:$settings.selectedPage)
+                    .ignoresSafeArea(.keyboard, edges: .bottom)
             }else{
-                Login(network: network)
+                beforeLogin(authVM: network, selectedIndex:$settings.selectedPage)
             }
+            
         } else {
+            
             if(self.network.isLoggedUser){
-                mainMenu(network:network, selectedIndex:$selectedIndex)
+                mainMenu( authVM: network, selectedIndex:$settings.selectedPage)
             }else{
-                Login(network: network)
+                
+                beforeLogin(authVM: network, selectedIndex:$settings.selectedPage)
             }
+            
         }
         
     }
@@ -51,46 +54,65 @@ struct ContentView : View {
     }
     
     func checkIsLogged(){
-        if(self.storage.refreshToken != ""){
-            self.network.refreshToken(refreshToken: self.storage.refreshToken)
-        }else{
-            self.network.isLoggedUser = false
-        }
+        self.network.isLogged()
     }
 }
 
-struct mainMenu: View {
-    @State var network:AuthService
+
+struct beforeLogin: View {
+    @ObservedObject var authVM:AuthViewModel
     @Binding var selectedIndex:Int
+    
     
     var body: some View {
         VStack{
             
             if(self.selectedIndex == 0) {
+                
+                Login(authVM: authVM)
+            }
+            
+            if(self.selectedIndex == 1) {
+                
+                SignUp(authVM: authVM)
+            }
+        }
+    }
+}
 
+
+struct mainMenu: View {
+    @ObservedObject var authVM:AuthViewModel
+    @Binding var selectedIndex:Int
+    
+    
+    var body: some View {
+        VStack{
+            
+            if(self.selectedIndex == 0) {
+                
                 HomePageList()
             }
-
+            
             if(self.selectedIndex == 1) {
-
-                Text("Page 4")
+                
+                FavoritesView()
             }
-
+            
             if(self.selectedIndex == 2) {
-
+                
                 SearchPage()
             }
-
-            if(self.selectedIndex == 3) {
             
-
+            if(self.selectedIndex == 3) {
+                ProfileView(authVM: authVM)
+                
             }
-
+            
             if(self.selectedIndex == 4) {
-
-
+                SignUp(authVM: authVM)
+                
             }
-        
             
             Spacer()
             

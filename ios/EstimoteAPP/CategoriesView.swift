@@ -11,22 +11,19 @@ import SwiftUI
 struct CategoriesView: View {
     @State var categorie:Category
     @ObservedObject var categoryVM = CategoryViewModel()
-    @Environment(\.presentationMode) var presentationMode
-    @State var isOpened = UserSettings.init().isOpened
     
     var body: some View {
+        
         VStack{
-            ZStack{
-                List(self.categoryVM.categoryModel, id:\.id){ data in
-                    ScrollView {
-                        HStack{
-                            NavigationLink(destination: SinglePleace(id: data.id)) {
-                                UrlImageView(urlString: data.daily.coverImage)
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width:50, height: 50)
-                                    .cornerRadius(10)
-                                Text(data.daily.name!)
-                            }
+            List(self.categoryVM.categoryModel, id:\.id){ data in
+                ScrollView {
+                    HStack{
+                        NavigationLink(destination: SinglePleace(id: data.daily.id ?? 1)) {
+                            UrlImageView(urlString: data.daily.coverImage)
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width:50, height: 50)
+                                .cornerRadius(10)
+                            Text(data.daily.name!)
                         }
                     }
                 }
@@ -36,11 +33,10 @@ struct CategoriesView: View {
         }
         .navigationBarTitle(categorie.name!)
     }
-    
 }
 
 struct CategoriesView_Previews: PreviewProvider {
     static var previews: some View {
-        CategoriesView(categorie: Category(id: 2, name: "ddddd"))
+        CategoriesView(categorie: Category(id: 1, name: "ddddd"))
     }
 }

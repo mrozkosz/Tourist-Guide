@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
     const isAdmin = await req.loggedUser.isAdmin();
 
     if (!isAdmin) {
-        return res.status(HttpStatuses.UNAUTHORIZED).send({
+        return res.status(HttpStatuses.FORBIDDEN).send({
             message: 'You must be the admin user'
         });
     }

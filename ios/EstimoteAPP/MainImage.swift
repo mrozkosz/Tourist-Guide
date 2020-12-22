@@ -18,7 +18,7 @@ struct MainImage: View {
             UrlImageView(urlString: self.data?.coverImage ?? "coverImage")
                 .aspectRatio(contentMode: .fill)
                 .frame(width:width, height: 300)
-                .cornerRadius(35)
+//                .cornerRadius(35)
                 .overlay(
                     VStack{
                         HStack {

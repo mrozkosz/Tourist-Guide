@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct MainPleaceCard: View {
-    var pleace:Pleace?
+    var pleace:HomePagePleaceDetails?
     
     var width: CGFloat {
         return UIScreen.main.bounds.width - 30
@@ -43,7 +43,7 @@ struct MainPleaceCard: View {
 #if DEBUG
 struct MainPleaceCard_Previews: PreviewProvider {
     static var previews: some View {
-        MainPleaceCard(pleace: Pleace(id: 1, coverImage: "RGq0aLUVqP4boCk2.jpg", location: "location", name: "null", description: "null"))
+        MainPleaceCard(pleace: HomePagePleaceDetails(id: 1, coverImage: "RGq0aLUVqP4boCk2.jpg", location: "location", name: "null"))
     }
 }
 #endif

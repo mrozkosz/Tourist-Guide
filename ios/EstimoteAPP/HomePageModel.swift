@@ -10,27 +10,22 @@ import Foundation
 
 
 struct HomePageResponseModel : Decodable {
-    let daily : Pleace
-    let mostVisited: [Pleace]
+    let daily : HomePagePleaceDetails
+    let mostVisited: [HomePagePleaceDetails]
     let categorie: [Category]
-}
- 
-struct HomePageDataModel: Decodable {
-    var id = UUID()
-    let daily:Pleace
-    let mostVisited:[Pleace]
-    let categorie:[Category]
-    
-    enum CodingKeys: String, CodingKey {
-        case id,daily,mostVisited, categorie
-    }
+    let restPleaces: [HomePagePleaceDetails]
 }
 
-struct HomePageStructure: Hashable, Decodable, Identifiable{
-    var id = UUID()
-    let daily:Pleace
-    let mostVisited:[Pleace]
-    let categorie:[Category]
+struct HomePagePleaceDetails: Hashable, Decodable, Identifiable {
+    var id:Int
+    var coverImage:String
+    var location:String
+    var name:String
+    
+    enum CodingKeys: String, CodingKey {
+        case id, coverImage, location, name
+        
+    }
 }
 
 

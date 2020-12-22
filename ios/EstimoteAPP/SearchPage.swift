@@ -12,12 +12,80 @@ struct SearchPage: View {
     @State var searchValue:String = ""
     @State var isEditing:Bool = false
     @ObservedObject var pleacesVM = PleacesViewModel()
+    @ObservedObject var beaconsVM = BeaconsViewModel.shared
     
     
     var body: some View {
         NavigationView {
             
-            ScrollView{
+            ZStack{
+                
+                ScrollView{
+                    
+                    HStack {
+                        Text("Wyniki wyszukiwania")
+                            .frame(alignment: .leading)
+                            .font(.headline)
+                            .foregroundColor(.gray)
+                        Spacer()
+                    }.padding()
+                    
+                    ForEach(self.pleacesVM.pleacesModel, id: \.id){data in
+                        NavigationLink(destination: SinglePleace(id: data.id)) {
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text(data.location)
+                                        .font(.title)
+                                    Spacer()
+                                }.padding([.leading,.top],16)
+                                HStack {
+                                    Text(data.name)
+                                        .font(.subheadline)
+                                    Spacer()
+                                }.padding(.leading,16)
+                            }
+                        }
+                    }
+                    
+                    Group{
+                        HStack {
+                            Text("Znaleziono \(self.beaconsVM.beaconsModel.count) miejsc wartych odwiedzenia").foregroundColor(.gray)
+                            Spacer()
+                        }.padding()
+                        
+                        ForEach(0..<self.beaconsVM.beaconsModel.count, id:\.self){ index in
+                            HStack{
+                                
+                                ForEach(self.beaconsVM.beaconsModel[index], id:\.id){ data in
+                                    
+                                    NavigationLink(destination: SinglePleace(id: data.id)) {
+                                        VStack{
+                                            UrlImageView(urlString: data.coverImage)
+                                                .cornerRadius(20)
+                                                .aspectRatio(contentMode: .fill)
+                                                .scaledToFit()
+                                            HStack {
+                                                Text(data.location)
+                                                    .font(.title)
+                                                Spacer()
+                                            }.padding(.leading,16)
+                                            
+                                            HStack {
+                                                Text(data.name)
+                                                    .font(.subheadline)
+                                                Spacer()
+                                            }.padding(.leading,16)
+                                        }.padding(5)
+                                    }
+                                }
+                                
+                            }
+                            
+                        }.padding(.horizontal, 10)
+                    }
+                    
+                }.offset(y:100)
+                
                 if #available(iOS 14.0, *) {
                     SearchInput(editing: self.$isEditing, value: self.$searchValue)
                         .onChange(of: searchValue) { newValue in
@@ -27,46 +95,30 @@ struct SearchPage: View {
                     // Fallback on earlier versions
                 }
                 
+                ConnectionStatus()
                 
-                if #available(iOS 14.0, *) {
-                    LazyVStack{
-                        
-                        ForEach(self.pleacesVM.pleacesModel, id: \.id){data in
-                            NavigationLink(destination: SinglePleace(id: data.id)) {
-                                Text(data.name);
-                            }.onTapGesture{
-                                
-                            }
-                        }
-                        
-                    }.navigationBarHidden(true)
-                } else {
-                    
-                    List(){
-                        ForEach(self.pleacesVM.pleacesModel, id: \.id){data in
-                            NavigationLink(destination: SinglePleace(id: data.id)) {
-                                Text(data.name);
-                            }
-                        }
-                        
-                    }
-                }
-            }
+            }.navigationBarHidden(true)
+            
         }
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+struct SearchPage_Previews: PreviewProvider {
+    @ObservedObject var pleacesVM = PleacesViewModel()
+    
+    static var previews: some View {
+        SearchPage()
     }
 }
-    
-   
-
-    
-    
-    struct SearchPage_Previews: PreviewProvider {
-        @ObservedObject var pleacesVM = PleacesViewModel()
-        
-        static var previews: some View {
-            SearchPage()
-        }
-    }
 
 
 

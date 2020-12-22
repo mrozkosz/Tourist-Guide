@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import SwiftUI
+import MapKit
 
 class PleacesViewModel: ObservableObject {
     
@@ -25,7 +26,11 @@ class PleacesViewModel: ObservableObject {
         didSet { didChange.send() }
     }
     
+    @Published var photosCount:Int = 0
+    
     @Published var singlePleaceModel:SinglePleaceDataModel?
+    
+    @Published var dataIsLoaded = false
     
     private var pleacesService: PleacesService!
     
@@ -52,10 +57,14 @@ class PleacesViewModel: ObservableObject {
                 
                 self.photos =  photos.map(PhotosObjectModel.init).chunked(into: 2)
                 
+                self.photosCount = photos.count
+                
                 let tracks:[Tracks] = result.self.tracks
                 
                 self.tracks = tracks.map(TracksObjectModel.init)
                 
+                self.dataIsLoaded = true
+            
             }
         }
         

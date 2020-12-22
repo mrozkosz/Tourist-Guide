@@ -11,16 +11,12 @@ import SwiftUI
 //import Combine
 
 struct Login: View {
-    var network:AuthService
+    @EnvironmentObject var settings:Settings
+    @ObservedObject var authVM:AuthViewModel
     @State var showPassword:Bool = false
     @State var email:String = ""
     @State var password:String = ""
     @State var showSheetView = false
-    @State var errorMessage:[String] = []
-    
-    init(network: AuthService) {
-        self.network = network
-    }
     
     var body: some View {
         ZStack{
@@ -52,20 +48,14 @@ struct Login: View {
                     }.padding(.top,10)
                     
                     HStack{
-                        if(self.errorMessage.count > 0){
-                            Text("\(self.errorMessage[0])")
-                                .font(.caption)
-                                .foregroundColor(.red)
-                        }
+                        Text("\(self.authVM.error)")
+                            .font(.caption)
+                            .foregroundColor(.red)
                     }
                     
                     HStack(alignment: .center){
                         Button(action: {
-                            self.network.login(email: self.email, password: self.password)
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                self.errorMessage = self.network.errorMessage
-                            }
-                            
+                            self.authVM.login(email: self.email, password: self.password)
                         }, label: {
                             Text("Zaloguj się")
                                 .padding(10)
@@ -75,24 +65,21 @@ struct Login: View {
                                     RoundedRectangle(cornerRadius: 10)
                                         .stroke(lineWidth: 0)
                                         .background(Color(red: 0.36, green: 0.42, blue: 0.87).cornerRadius(10))
-                            )
-                            
+                                )
                         })
                         
                     }.offset(y:10)
                     
                     HStack{
-                        Image("wave")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width:110, height: 10)
-                            .padding(.top,30)
-                            .padding(.bottom, 10)
-                    }
+                        LoginByFacebook(network: self.authVM)
+                    }.padding(.top, 10)
                     
-                    HStack{
-                        LoginByFacebook(network: self.network)
-                        LoginByGoogle(network: self.network)
+                    Text("Nie masz jeszcze konta?")
+                        .font(.footnote)
+                        .foregroundColor(Color.gray)
+                        .padding(.top, 5)
+                    Text("zapisz się").foregroundColor(Color.blue).onTapGesture {
+                        self.settings.selectedPage = 1
                     }
                     
                 }.padding()
@@ -102,20 +89,20 @@ struct Login: View {
                 maxHeight: .infinity,
                 alignment: .topLeading
             )
-                .background(Color("MainColor"))
-                .cornerRadius(25)
-                .offset(y:100)
+            .background(Color("MainColor"))
+            .cornerRadius(25)
+            .offset(y:100)
             
         }.edgesIgnoringSafeArea(.all)
     }
 }
 
 
-struct FacebookLogin_Previews: PreviewProvider {
+struct Login_Previews: PreviewProvider {
     static let network = AuthService()
     
     static var previews: some View {
-        Login(network: network)
+        Login(authVM: AuthViewModel())
     }
 }
 
@@ -144,10 +131,10 @@ struct PasswordTextField: View {
             }
             
             Button(action: {
-                self.hideKeyboard()
-                self.showPassword.toggle()}) {
-                    Image(systemName: "eye")
-                        .foregroundColor(.secondary)
+                    self.hideKeyboard()
+                    self.showPassword.toggle()}) {
+                Image(systemName: "eye")
+                    .foregroundColor(.secondary)
             }.padding(.horizontal,15)
         }
         .overlay(
@@ -174,7 +161,6 @@ struct OtherTextField: View {
                       text: self.$text).padding([.top,.bottom],10)
                 .autocapitalization(.none)
                 .padding(.leading,5)
-            
         }
         .overlay(
             RoundedRectangle(cornerRadius: 25)
@@ -193,7 +179,7 @@ struct Background: View {
                     .scaledToFill()
                     .frame(width:45, height: 45)
                 
-                Text("wirayasa.design")
+                Text("tourists.guide")
                     .foregroundColor(.white)
             }.padding().padding(.top,15)
             
@@ -203,6 +189,6 @@ struct Background: View {
                 maxHeight: .infinity,
                 alignment: .topLeading
         )
-            .background(Color("DarkBlue"))
+        .background(Color("DarkBlue"))
     }
 }

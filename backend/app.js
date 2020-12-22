@@ -4,6 +4,11 @@ const http = require('http').createServer(app);
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
 const wss = require('./plugins/webSocket')(http);
+const cron = require('node-cron');
+
+cron.schedule('* * * * *', () => {
+    console.log('running a task every minute');
+});
 
 const di = require('./di');
 
@@ -27,5 +32,4 @@ app.use(routes);
 
 require('./plugins/cors')(app);
 
-const port = process.env.PORT || 3001;
-http.listen(port, () => console.log(`Working on port ${port}`));
+module.exports = app;

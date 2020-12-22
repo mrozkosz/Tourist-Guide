@@ -48,6 +48,8 @@ struct SinglePleaceDataModel: Decodable {
     let description:String?
     let photos:[Photos]
     let tracks:[Tracks]
+    let lat:Double
+    let long:Double
 }
 
 struct Photos: Decodable, Identifiable {

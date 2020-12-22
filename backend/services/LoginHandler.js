@@ -29,7 +29,7 @@ class LoginHandler {
         const loggedUser = await this.userRepository.findByPk(user.id, {
             include: [
                 {
-                    association: 'roles',
+                    association: 'Roles',
                     through: { attributes: [] }
                 }
             ]

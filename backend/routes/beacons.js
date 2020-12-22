@@ -6,14 +6,21 @@ const beaconValidator = require('../validators/beaconValidator');
 module.exports = (di) => {
     const beaconController = di.get('controller.beacon');
 
-    router.get('/beacons', (...args) => beaconController.index(...args));
+    router.get('/beacons', [isLoggedIn, isAdmin], (...args) =>
+        beaconController.index(...args)
+    );
 
-    router.get('/beacons', (...args) => beaconController.show(...args));
+    router.post(
+        '/beacons/detected',
+        [isLoggedIn],
+        [beaconValidator.show, validate],
+        (...args) => beaconController.show(...args)
+    );
 
     router.post(
         '/beacons',
         [isLoggedIn, isAdmin],
-        [beaconValidator, validate],
+        [beaconValidator.create, validate],
         (...args) => beaconController.create(...args)
     );
 

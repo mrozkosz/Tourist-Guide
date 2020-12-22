@@ -1,7 +1,7 @@
 const { body } = require('express-validator');
 const { Category } = require('../models');
 
-const create = [
+const update = [
     body(['location'])
         .trim()
         .not()
@@ -32,10 +32,16 @@ const create = [
             if (!category) {
                 return Promise.reject('Category does not exists!');
             }
-        })
+        }),
+
+    body(['lat']).trim().not().isEmpty().withMessage('should be not empty'),
+
+    body(['lang']).trim().not().isEmpty().withMessage('should be not empty')
 ];
 
-const update = [
+const create = [...update];
+
+create.push(
     body(['name'])
         .trim()
         .not()
@@ -53,7 +59,7 @@ const update = [
                 return Promise.reject('Category already exists!');
             }
         })
-];
+);
 
 module.exports = {
     create,

@@ -2,7 +2,7 @@ const validate = require('./validate');
 const isAdmin = require('./isAdmin');
 const isLoggedIn = require('./isLoggedIn');
 const isRecoverHash = require('./isRecoverHash');
-const isEmployee = require('./isEmployee');
+const adminIsNotRequired = require('./adminIsNotRequired');
 const isRefreshToken = require('./isRefreshToken');
 
 module.exports = {
@@ -10,6 +10,6 @@ module.exports = {
     isAdmin,
     isLoggedIn,
     isRecoverHash,
-    isEmployee,
-    isRefreshToken
+    isRefreshToken,
+    adminIsNotRequired
 };

@@ -95,8 +95,8 @@ struct AudioPlayer : View {
                                 }
                             }
                         }))
-            
         }
+        
     }
     
     func playTrack(){

@@ -28,7 +28,7 @@ class AudioLoader: ObservableObject{
     }
     
     func setTrack(urlString: String){
-        self.urlString = urlString
+        self.urlString = baseUrl + "/tracks/" + urlString
     }
     
     func getFirstTrack(){

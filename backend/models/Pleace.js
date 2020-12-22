@@ -25,6 +25,16 @@ module.exports = (sequelize, Sequelize) => {
         description: {
             type: Sequelize.STRING,
             allowNull: false
+        },
+
+        lat: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+
+        long: {
+            type: Sequelize.STRING,
+            allowNull: false
         }
     });
 
