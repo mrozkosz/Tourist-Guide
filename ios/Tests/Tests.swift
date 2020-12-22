@@ -1,14 +1,14 @@
 //
-//  EstimoteAPPUITests.swift
-//  EstimoteAPPUITests
+//  Tests.swift
+//  Tests
 //
-//  Created by Mateusz on 02/09/2020.
+//  Created by Mateusz on 19/12/2020.
 //  Copyright © 2020 Mateusz. All rights reserved.
 //
 
 import XCTest
 
-class EstimoteAPPUITests: XCTestCase {
+class Tests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -35,7 +35,7 @@ class EstimoteAPPUITests: XCTestCase {
     func testLaunchPerformance() throws {
         if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
             // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
+            measure(metrics: [XCTApplicationLaunchMetric()]) {
                 XCUIApplication().launch()
             }
         }

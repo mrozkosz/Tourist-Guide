@@ -9,7 +9,7 @@ import UIKit
 import Foundation
 
 
-var baseUrl     = "http://192.168.2.10:3001"
+var baseUrl     = "http://77.55.214.2:8080"
 // Applicaiton Shared Secret Key
 var appSecretKey = "api-key=qt2ggwWhoc559LcNCbKd4SI40tvbRiaS"
 var appApiKey = "98b027a2-fd56-41c5-ad13-9c4e01a1e317"
