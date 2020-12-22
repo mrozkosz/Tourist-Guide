@@ -1,5 +1,5 @@
 const HttpStatuses = require('http-status-codes');
-const { Op } = require('sequelize');
+const { Op, sequelize } = require('sequelize');
 const config = require('../config');
 const mime = require('mime-types');
 const sharp = require('sharp');
@@ -101,18 +101,15 @@ class PleaceController {
                 ip,
                 views: 1
             });
+        } else {
+            view.increment('views', { by: 1 });
         }
-
-        const views = view.views + 1;
-
-        view.update({ views });
 
         return res.send({ results: pleace });
     }
 
     async update(req, res) {
         const { id } = req.params;
-        const { name } = req.body;
 
         const pleace = await this.pleaceRepository.findById(id);
 
@@ -120,7 +117,7 @@ class PleaceController {
             return res.sendStatus(HttpStatuses.NOT_FOUND);
         }
 
-        pleace.update({ name });
+        pleace.update({ ...req.body });
 
         return res.send(pleace);
     }
@@ -178,50 +175,6 @@ class PleaceController {
         });
 
         return res.send(pleace);
-    }
-
-    async test(req, res) {
-        console.log('working');
-        return res.send({
-            daily: {
-                id: 6,
-                location: 'Kraków',
-                name: 'Rynek główny',
-                description: 'fe',
-                coverImage: 'RGq0aLUVqP4boCk2.jpg'
-            },
-            mostVisited: [
-                {
-                    id: 1,
-                    location: 'Kraków',
-                    name: 'Sukiennice',
-                    description: 'xxxx',
-                    coverImage: 'RGq0aLUVqP4boCk.jpeg'
-                },
-                {
-                    id: 2,
-                    location: 'Wrocław',
-                    name: 'Panorama Racławicka',
-                    description: 'zzzzz',
-                    coverImage: 'wroclaw.jpg'
-                }
-            ],
-
-            categorie: [
-                {
-                    id: 1,
-                    name: 'Miasta'
-                },
-                {
-                    id: 2,
-                    name: 'Zabytki'
-                },
-                {
-                    id: 3,
-                    name: 'Zbiorniki wodne'
-                }
-            ]
-        });
     }
 }
 

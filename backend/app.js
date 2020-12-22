@@ -1,14 +1,7 @@
 const express = require('express');
 const app = express();
-const http = require('http').createServer(app);
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload');
-const wss = require('./plugins/webSocket')(http);
-const cron = require('node-cron');
-
-cron.schedule('* * * * *', () => {
-    console.log('running a task every minute');
-});
 
 const di = require('./di');
 
@@ -26,10 +19,12 @@ app.use(fileUpload());
 
 app.use(express.static('../public'));
 
-const routes = require('./routes')(di, wss);
+const server = require('http').createServer(app);
+
+var io = require('socket.io')(server);
+
+const routes = require('./routes')(di, io);
 
 app.use(routes);
 
-require('./plugins/cors')(app);
-
-module.exports = app;
+module.exports = server;

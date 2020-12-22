@@ -8,7 +8,7 @@ module.exports = async (req, res, next) => {
     if (token === null) {
         return false;
     }
-
+    console.log(token);
     const decoded = decodeToken(token);
 
     if (decoded === null) {

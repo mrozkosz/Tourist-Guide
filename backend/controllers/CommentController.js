@@ -5,15 +5,30 @@ class CommentController {
     }
 
     async show(id) {
-        const comments = await this.commentRepository.findAll({
-            where: { pleaceId: id },
+        const perPage = 150,
+            page = 1,
+            sortBy = 'createdAt',
+            order = 'asc';
+
+        const pageNumber = parseInt(page);
+        const limit = parseInt(perPage);
+
+        const offset = (pageNumber - 1) * limit;
+
+        let where = {
+            pleaceId: id
+        };
+
+        const comments = await this.commentRepository.findAndCountAll({
+            where,
             include: [
                 {
                     association: 'user'
                 }
             ],
-
-            rows: false
+            offset,
+            limit,
+            order: [[sortBy, order]]
         });
 
         if (!comments) {
@@ -23,9 +38,7 @@ class CommentController {
         return comments;
     }
 
-    async create(pardedMessage, userId) {
-        const { join: pleaceId, msg } = pardedMessage;
-
+    async create(pleaceId, msg, userId) {
         const pleace = await this.pleaceRepository.findOne({
             where: { id: pleaceId }
         });
