@@ -6,6 +6,7 @@ const env = (key, defaultValue = null) => process.env[key] || defaultValue;
 const isEnabled = (key) => env(key) && env(key) === 'true';
 
 const config = {
+    public: env('PUBLIC_URL'),
     db: {
         url: env('DATABASE_URL'),
         logging: isEnabled('SEQUELIZE_LOGGING') ? console.log : false,
