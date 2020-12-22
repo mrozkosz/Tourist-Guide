@@ -9,7 +9,7 @@ class HomeController {
         this.categoryRepository = categoryRepository;
     }
 
-    async home(req, res) {
+    async index(req, res) {
         const limit = 5;
         const mostVisited = await this.viewsRepository.findAll({
             attributes: [
@@ -60,7 +60,7 @@ class HomeController {
             },
             mostVisited: sortedPleaces,
             categorie,
-            restPleaces: sortedPleaces
+            restPleaces: restPleaces
         });
     }
 }

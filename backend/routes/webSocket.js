@@ -1,47 +1,43 @@
 const express = require('express');
 const router = express.Router();
-const broadcast = require('../helpers/broadcast');
 const decodeToken = require('../helpers/decodeToken');
 
-module.exports = (di, wss) => {
+module.exports = (di, io) => {
     const commentController = di.get('controller.comment');
 
-    wss.on('connection', function connection(ws, req) {
-        ws.rooms = new Set();
-        ws.on('message', async function (message) {
-            try {
-                pardedMessage = JSON.parse(message);
-            } catch (error) {
-                console.error(error);
+    connections = new Set();
+
+    io.on('connection', (socket) => {
+        socket.on('join_room', (pleaceId) => {
+            socket.join('room' + pleaceId);
+        });
+
+        socket.on('allComments', async ({ pleaceId }) => {
+            const allComments = await commentController.show(pleaceId);
+
+            if (allComments) {
+                const { rows } = allComments;
+
+                socket.emit('comments', { comments: rows });
+            }
+        });
+
+        socket.on('message', async ({ pleaceId, message, token }) => {
+            console.log(token);
+            const decodedToken = decodeToken(token);
+
+            if (!decodedToken) {
+                return;
             }
 
-            if (pardedMessage.id) {
-                ws.rooms.add(pardedMessage.id);
+            await commentController.create(pleaceId, message, decodedToken.id);
 
-                const allComments = await commentController.show(
-                    pardedMessage.id
-                );
+            const allComments = await commentController.show(pleaceId);
 
-                ws.send(JSON.stringify(allComments));
-            }
+            if (allComments) {
+                const { rows } = allComments;
 
-            if (pardedMessage.join) {
-                const decodedToken = decodeToken(pardedMessage.token);
-
-                if (!decodedToken) {
-                    return;
-                }
-
-                ws.rooms.add(pardedMessage.join);
-
-                const createdComment = commentController.create(
-                    pardedMessage,
-                    decodedToken.user.id
-                );
-
-                if (await createdComment) {
-                    broadcast(pardedMessage, wss);
-                }
+                io.to('room' + pleaceId).emit('comments', { comments: rows });
             }
         });
     });

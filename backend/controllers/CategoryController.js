@@ -16,8 +16,15 @@ class CategoryController {
             perPage = 5,
             page = 1,
             sortBy = 'createdAt',
-            order = 'desc'
+            order = 'desc',
+            all = false
         } = req.query;
+
+        if (all) {
+            const categories = await this.categoryRepository.findAndCountAll();
+
+            return res.send({ totalPages: 1, data: categories.rows });
+        }
 
         const pageNumber = parseInt(page);
         const limit = parseInt(perPage);

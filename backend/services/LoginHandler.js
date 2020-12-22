@@ -66,7 +66,6 @@ class LoginHandler {
         }
 
         if (!user.facebookId) {
-            console.log(user);
             user = await user.update({ facebookId });
         }
 

@@ -7,6 +7,7 @@ const CommentController = require('../controllers/CommentController');
 const FavoriteController = require('../controllers/FavoriteController');
 const UsersController = require('../controllers/UsersController');
 const HomeController = require('../controllers/HomeController');
+const PhotoController = require('../controllers/PhotoController');
 
 module.exports = (container) => {
     container
@@ -55,4 +56,8 @@ module.exports = (container) => {
         .addArgument(new Reference('repositories.view'))
         .addArgument(new Reference('repositories.pleace'))
         .addArgument(new Reference('repositories.category'));
+
+    container
+        .register('controller.photo', PhotoController)
+        .addArgument(new Reference('repositories.photo'));
 };

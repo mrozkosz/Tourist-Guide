@@ -15,28 +15,9 @@ const update = [
         .isEmpty()
         .withMessage('should be not empty'),
 
-    body(['categorieId'])
-        .trim()
-        .not()
-        .isEmpty()
-        .withMessage('should be not empty')
-        .bail()
-        .custom(async (categorieId, { req }) => {
-            console.log(req.files);
-            const category = await Category.findOne({
-                where: {
-                    id: categorieId
-                }
-            });
-
-            if (!category) {
-                return Promise.reject('Category does not exists!');
-            }
-        }),
-
     body(['lat']).trim().not().isEmpty().withMessage('should be not empty'),
 
-    body(['lang']).trim().not().isEmpty().withMessage('should be not empty')
+    body(['long']).trim().not().isEmpty().withMessage('should be not empty')
 ];
 
 const create = [...update];
@@ -57,6 +38,24 @@ create.push(
 
             if (category) {
                 return Promise.reject('Category already exists!');
+            }
+        }),
+
+    body(['categorieId'])
+        .trim()
+        .not()
+        .isEmpty()
+        .withMessage('should be not empty')
+        .bail()
+        .custom(async (categorieId, { req }) => {
+            const category = await Category.findOne({
+                where: {
+                    id: categorieId
+                }
+            });
+
+            if (!category) {
+                return Promise.reject('Category does not exists!');
             }
         })
 );
