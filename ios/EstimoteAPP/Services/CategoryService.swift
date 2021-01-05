@@ -18,11 +18,12 @@ class CategoryService
     
     func getDataById(id:Int, completion: @escaping([CategoryDataModel]) ->())
     {
-        
-        
         let url = URL(string: baseUrl + "/category/" + String(id))
+        
         guard let requestUrl = url else { fatalError() }
+        
         var request = URLRequest(url: requestUrl)
+        
         request.httpMethod = "GET"
 
         request.setValue("Bearer \(storage.token)", forHTTPHeaderField: "Authorization")

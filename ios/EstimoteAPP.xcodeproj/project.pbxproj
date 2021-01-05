@@ -23,8 +23,6 @@
 		610F1CB42570008800FA5293 /* PleacesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610F1CB32570008800FA5293 /* PleacesService.swift */; };
 		610F1CB92570014A00FA5293 /* PleacesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610F1CB82570014A00FA5293 /* PleacesViewModel.swift */; };
 		610F1CBE2570024800FA5293 /* PleacesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610F1CBD2570024800FA5293 /* PleacesModel.swift */; };
-		610F1CC4257107C600FA5293 /* ImageViewerRemote in Frameworks */ = {isa = PBXBuildFile; productRef = 610F1CC3257107C600FA5293 /* ImageViewerRemote */; };
-		610F1CC6257107C600FA5293 /* ImageViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 610F1CC5257107C600FA5293 /* ImageViewer */; };
 		611086ED25750F9100F06B2D /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611086EC25750F9000F06B2D /* AudioPlayer.swift */; };
 		611086FD25754F8B00F06B2D /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611086FC25754F8B00F06B2D /* FavoriteButton.swift */; };
 		6110870225754FCB00F06B2D /* MainImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6110870125754FCB00F06B2D /* MainImage.swift */; };
@@ -75,6 +73,7 @@
 		61C1EF2325815872009D2C39 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C1EF2225815872009D2C39 /* ProfileView.swift */; };
 		61C1EF2B2582C0A3009D2C39 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C1EF2A2582C0A2009D2C39 /* SignUp.swift */; };
 		61C1EF39258391B7009D2C39 /* ErrorsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C1EF38258391B7009D2C39 /* ErrorsModel.swift */; };
+		61CE972125A47B2B00597AAA /* LocationMonitoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61CE972025A47B2B00597AAA /* LocationMonitoring.swift */; };
 		61F787D32507E6CD009D7C72 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F787D22507E6CD009D7C72 /* CategoriesView.swift */; };
 		DDF4A599781525AA3C78B5FA /* Pods_EstimoteAPP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 120629C9D1A160746D8CD0A1 /* Pods_EstimoteAPP.framework */; };
 /* End PBXBuildFile section */
@@ -161,6 +160,7 @@
 		61C1EF2225815872009D2C39 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		61C1EF2A2582C0A2009D2C39 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		61C1EF38258391B7009D2C39 /* ErrorsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorsModel.swift; sourceTree = "<group>"; };
+		61CE972025A47B2B00597AAA /* LocationMonitoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationMonitoring.swift; sourceTree = "<group>"; };
 		61F787D22507E6CD009D7C72 /* CategoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		687E9BE8851CC8D6074F20EE /* Pods-EstimoteAPP.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EstimoteAPP.release.xcconfig"; path = "Target Support Files/Pods-EstimoteAPP/Pods-EstimoteAPP.release.xcconfig"; sourceTree = "<group>"; };
 		CBCB9AA05972B20326D0C62E /* Pods-EstimoteAPP.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EstimoteAPP.debug.xcconfig"; path = "Target Support Files/Pods-EstimoteAPP/Pods-EstimoteAPP.debug.xcconfig"; sourceTree = "<group>"; };
@@ -171,10 +171,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				610F1CC6257107C600FA5293 /* ImageViewer in Frameworks */,
 				610BD5D52576B79B0057109C /* ExternalAccessory.framework in Frameworks */,
 				61BB1B01250A32AD00F758B3 /* AVFoundation.framework in Frameworks */,
-				610F1CC4257107C600FA5293 /* ImageViewerRemote in Frameworks */,
 				DDF4A599781525AA3C78B5FA /* Pods_EstimoteAPP.framework in Frameworks */,
 				61AA9B5E2590AD590022AA50 /* SocketIO in Frameworks */,
 			);
@@ -373,6 +371,7 @@
 				6120CB5E251898910092D19A /* Settings.swift */,
 				61C1EEEE2579753B009D2C39 /* Map.swift */,
 				61C1EEF6257A9977009D2C39 /* NetworkMonitoring.swift */,
+				61CE972025A47B2B00597AAA /* LocationMonitoring.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -433,8 +432,6 @@
 			);
 			name = EstimoteAPP;
 			packageProductDependencies = (
-				610F1CC3257107C600FA5293 /* ImageViewerRemote */,
-				610F1CC5257107C600FA5293 /* ImageViewer */,
 				61AA9B5D2590AD590022AA50 /* SocketIO */,
 			);
 			productName = EstimoteAPP;
@@ -488,7 +485,6 @@
 			);
 			mainGroup = 61070DD024FF9EC1001D432D;
 			packageReferences = (
-				610F1CC2257107C500FA5293 /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */,
 				61AA9B5C2590AD590022AA50 /* XCRemoteSwiftPackageReference "socket" */,
 			);
 			productRefGroup = 61070DDA24FF9EC1001D432D /* Products */;
@@ -604,6 +600,7 @@
 				610BD60B25781E660057109C /* BeaconsModel.swift in Sources */,
 				61BB1AFC2509316600F758B3 /* SinglePleace.swift in Sources */,
 				6147517A258E888700FA4F25 /* MapModel.swift in Sources */,
+				61CE972125A47B2B00597AAA /* LocationMonitoring.swift in Sources */,
 				61C1EF1925810EB1009D2C39 /* AuthModel.swift in Sources */,
 				6120CB5D2517DBA00092D19A /* LocalStorage.swift in Sources */,
 				618CDB17257901B4004F1E17 /* FavoritesViewModel.swift in Sources */,
@@ -898,14 +895,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		610F1CC2257107C500FA5293 /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Jake-Short/swiftui-image-viewer.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.25;
-			};
-		};
 		61AA9B5C2590AD590022AA50 /* XCRemoteSwiftPackageReference "socket" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/socketio/socket.io-client-swift";
@@ -917,16 +906,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		610F1CC3257107C600FA5293 /* ImageViewerRemote */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 610F1CC2257107C500FA5293 /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */;
-			productName = ImageViewerRemote;
-		};
-		610F1CC5257107C600FA5293 /* ImageViewer */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 610F1CC2257107C500FA5293 /* XCRemoteSwiftPackageReference "swiftui-image-viewer" */;
-			productName = ImageViewer;
-		};
 		61AA9B5D2590AD590022AA50 /* SocketIO */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 61AA9B5C2590AD590022AA50 /* XCRemoteSwiftPackageReference "socket" */;

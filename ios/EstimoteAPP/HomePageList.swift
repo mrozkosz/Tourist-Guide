@@ -45,7 +45,7 @@ struct GroupOfComponents: View {
             MainPleaceCard(pleace: self.homePageVM.dailyModel)
             
             VStack(alignment: .leading){
-                Text("Najczęściej odwiedzane")
+                Text("Most visited")
                     .font(.headline)
                     .padding([.leading,.top],16)
                 ScrollView(.horizontal, showsIndicators: true) {
@@ -58,7 +58,7 @@ struct GroupOfComponents: View {
             }
             
             VStack(alignment: .leading){
-                Text("Kategorie")
+                Text("Categories")
                     .font(.headline)
                     .padding([.leading,.top],16)
                 ScrollView(.horizontal, showsIndicators: false) {

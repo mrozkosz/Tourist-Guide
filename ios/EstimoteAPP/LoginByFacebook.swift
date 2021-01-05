@@ -35,7 +35,7 @@ struct LoginByFacebook: View {
         }) {
            
             
-            Text("Dołącz przez Facebook")
+            Text("Join via Facebook")
                 .foregroundColor(Color.white)
                 .frame(width: 300, height: 50)
                 .background(

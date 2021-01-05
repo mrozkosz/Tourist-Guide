@@ -21,17 +21,17 @@ struct RecoverPassword: View {
     var body: some View {
         NavigationView {
             VStack{
-                Text("Zresetuj hasło")
+                Text("Reset your password")
                     .font(.title)
                     .foregroundColor(Color.gray)
                     .frame(maxWidth: .infinity, alignment: .leading)
-                Text("Wprowadź swój adres email, aby poprosić o zresetowanie hasła")
+                Text("Please enter your email address to request a password reset")
                     .font(.callout)
                     .foregroundColor(Color.gray)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 if(self.isRecoverPasswordSend ){
-                    OtherTextField(icon: "lock", placeholder: "Kod", text: self.$hash)
+                    OtherTextField(icon: "lock", placeholder: "Code", text: self.$hash)
                     PasswordTextField(showPassword: self.showPassword, password: self.$password).padding(.top,5)
                     
                 }else{
@@ -70,7 +70,7 @@ struct RecoverPassword: View {
                         Button(action: {
                             self.isRecoverPasswordSend = true
                         }, label: {
-                            Text("Mam już kod")
+                            Text("I already have the code")
                                 .padding(10)
                         })
                     }

@@ -23,17 +23,17 @@ struct SignUp: View {
             Background()
             
             VStack(alignment: .leading){
-                Text("Zarejestruj się").padding(.leading, 20).padding(.top, 25)
+                Text("Zapisz się").padding(.leading, 20).padding(.top, 25)
                     .font(.title)
                     .foregroundColor(Color.gray)
                 
-                Text("Już jesteś blisko!").padding(.leading, 20)
+                Text("You're close!").padding(.leading, 20)
                     .font(.footnote)
                     .foregroundColor(Color.gray)
                 
                 VStack {
-                    OtherTextField(icon: "person", placeholder: "Imię", text: self.$firstName).padding(.bottom, 5 )
-                    OtherTextField(icon: "person", placeholder: "Nazwisko", text: self.$lastName).padding(.bottom, 5 )
+                    OtherTextField(icon: "person", placeholder: "First Name", text: self.$firstName).padding(.bottom, 5 )
+                    OtherTextField(icon: "person", placeholder: "Last Name", text: self.$lastName).padding(.bottom, 5 )
                     OtherTextField(icon: "person", placeholder: "Email", text: self.$email)
                     PasswordTextField(showPassword: self.showPassword, password: self.$password).padding(.top,5)
                     
@@ -49,7 +49,7 @@ struct SignUp: View {
                         Button(action: {
                             self.signUp()
                         }, label: {
-                            Text("Zapisz się")
+                            Text("SignUp")
                                 .padding(10)
                                 .foregroundColor(Color.white)
                                 .frame(width: 300, height: 50)
@@ -62,11 +62,11 @@ struct SignUp: View {
                         
                     }.offset(y:10)
                     
-                    Text("Mam już konto.")
+                    Text("I already have an account.")
                         .font(.footnote)
                         .foregroundColor(Color.gray)
                         .padding(.top, 5)
-                    Text("zaloguj się").foregroundColor(Color.blue).onTapGesture {
+                    Text("SignIn").foregroundColor(Color.blue).onTapGesture {
                         self.settings.selectedPage = 0
                     }
                     

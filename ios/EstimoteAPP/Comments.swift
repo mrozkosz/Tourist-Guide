@@ -38,7 +38,7 @@ struct Comments:View {
                             Spacer()
                             HStack() {
                                 VStack(alignment: .trailing, spacing: 6){
-                                    Text("Ty")
+                                    Text("You")
                                         .multilineTextAlignment(.center)
                                         .font(.subheadline)
                                     Text("\(x.message)")
@@ -55,7 +55,7 @@ struct Comments:View {
             }
             Spacer()
             HStack{
-                TextField("Napisz swoją opinię...",
+                TextField("Write your opinion ...",
                           text: $text).padding([.top,.bottom],10)
                     .autocapitalization(.none)
                     .padding(.leading,5)
@@ -74,7 +74,7 @@ struct Comments:View {
                 RoundedRectangle(cornerRadius: 30)
                     .stroke(Color.gray,lineWidth: 0.9)
             ).padding(5)
-            .navigationBarTitle("Opinie i Komentarze")
+            .navigationBarTitle("Opinions and Comments")
         }.onAppear{
             self.socket.connect(id: self.id)
         }

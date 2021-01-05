@@ -23,7 +23,7 @@ module.exports = (di) => {
         userController.create(...args)
     );
 
-    router.put('/users', [userValidator.update, validate], (...args) =>
+    router.put('/users/:id', [userValidator.update, validate], (...args) =>
         userController.update(...args)
     );
 

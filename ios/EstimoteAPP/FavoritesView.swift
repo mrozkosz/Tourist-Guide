@@ -34,7 +34,7 @@ struct FavoritesView: View {
                     }.onAppear{
                         self.favoritesVM.getMethod()
                     }
-                }.navigationBarTitle("Moje Ulubione")
+                }.navigationBarTitle("My Favorite Places")
                 ConnectionStatus()
             }
         }

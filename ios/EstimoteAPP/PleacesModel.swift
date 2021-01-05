@@ -21,7 +21,6 @@ struct PleacesDataModel: Decodable {
     let name:String?
     let description:String?
  
-    
     enum CodingKeys: String, CodingKey {
         case id, coverImage,location,name,description
     }

@@ -9,7 +9,6 @@
 import SwiftUI
 import MapKit
 import CoreLocation
-import AVFoundation
 
 struct Map: UIViewRepresentable{
     var locationManager = CLLocationManager()
@@ -61,10 +60,8 @@ struct Map: UIViewRepresentable{
         locationManager.delegate = context.coordinator
         locationManager.startUpdatingLocation()
         
-        
         return mapView
     }
-    
     
     func updateUIView(_ view: MKMapView, context: Context) {
         
@@ -95,7 +92,6 @@ struct Map: UIViewRepresentable{
             view.addOverlay(routes.polyline)
             
             if startedNavigation {
-                //print("text")
                 if let location = locationManager.location {
                     
                     let userPosition = location.coordinate

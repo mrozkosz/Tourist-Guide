@@ -16,6 +16,7 @@ import EstimoteProximitySDK
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var proximityObserver: ProximityObserver!
+    private var beaconsService = BeaconsService()
     
     func application(
         _ application: UIApplication,
@@ -43,14 +44,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let zone = ProximityZone(tag: "mateuszrozkosz97-gmail-com-72t", range: ProximityRange.near)
         zone.onEnter = { context in
             let content = UNMutableNotificationContent()
-            content.title = "Hello"
-            content.body = "You're near your tag"
-            content.sound = UNNotificationSound.default
-            let request = UNNotificationRequest(identifier: "enter", content: content, trigger: nil)
-            notificationCenter.add(request, withCompletionHandler: nil)
+            
+
+            self.beaconsService.getData(beaconsUUIDs: [context.deviceIdentifier]){ result in
+                DispatchQueue.main.async {
+                    
+                    if(result.count >= 1){
+                        content.title = result.first?.location ?? ""
+                        content.body =  result.first?.name ?? ""
+                        content.sound = UNNotificationSound.default
+                        let request = UNNotificationRequest(identifier: "enter", content: content, trigger: nil)
+                        notificationCenter.add(request, withCompletionHandler: nil)
+                    }else{
+                        content.title = "Witaj!"
+                        content.body =  "Mamy wiele ciekawych miejsc do odwiedzenia!"
+                        content.sound = UNNotificationSound.default
+                        let request = UNNotificationRequest(identifier: "enter", content: content, trigger: nil)
+                        notificationCenter.add(request, withCompletionHandler: nil)
+                    }
+                    
+                }
+            }
+           
         }
         zone.onExit = { context in
             let content = UNMutableNotificationContent()
+            
             content.title = "Bye bye"
             content.body = "You've left the proximity of your tag"
             content.sound = UNNotificationSound.default

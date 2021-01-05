@@ -54,12 +54,13 @@ class BeaconsViewModel:NSObject,ObservableObject{
     
     func featchBeacons(){
         self.estimoteCloudCredentials = CloudCredentials(appID: "mateuszrozkosz97-gmail-com-72t", appToken: "6a801bf31ca12adff113be06414b9e2d")
-        
+    
         self.proximityObserver = ProximityObserver(credentials: estimoteCloudCredentials, onError: { error in
             print("ProximityObserver error: \(error)")
         })
         
         self.zone = ProximityZone(tag: "mateuszrozkosz97-gmail-com-72t", range: ProximityRange(desiredMeanTriggerDistance: 0.5)!)
+        
         
         self.zone.onContextChange = { contexts in
             

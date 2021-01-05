@@ -34,10 +34,15 @@ class AuthService: ObservableObject {
     func login(email:String, password:String, completion:  @escaping ((Result<LoginResponseModel, ErrorString>) -> Void)){
         
         let postString = "email=\(email)&password=\(password)";
+        
         let url = URL(string: baseUrl + "/login")
+        
         guard let requestUrl = url else { fatalError() }
+        
         var request = URLRequest(url: requestUrl)
+        
         request.httpMethod = "POST"
+        
         request.httpBody = postString.data(using: String.Encoding.utf8);
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -59,6 +64,7 @@ class AuthService: ObservableObject {
                 }
                 
             } catch _ {
+                print("Decoder failed")
             }
             
         }.resume()

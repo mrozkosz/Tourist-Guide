@@ -62,9 +62,12 @@ struct SinglePleace: View {
                             
                             Group{
                                 HStack() {
-                                    Text("Galeria zdjęć")
-                                        .font(.headline)
-                                        .padding()
+                                    if(self.pleacesVM.photos.count>0){
+                                        Text("Gallery")
+                                            .font(.headline)
+                                            .padding()
+                                    }
+                                    
                                     Spacer()
                                 }
                                 
@@ -98,11 +101,11 @@ struct SinglePleace: View {
                             //                                .frame(width: geometry.size.width, height: 150, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                             //                                .cornerRadius(30)
                             //                                .padding(.bottom, 300)
-
+                            
                             NavigationLink(destination: Comments(id: self.$id)) {
                                 HStack{
                                     Spacer()
-                                    Text("Opinie i Komentarze")
+                                    Text("Opinions and Comments")
                                         .padding(10)
                                         .foregroundColor(Color.white)
                                         .frame(width: 300, height: 50)

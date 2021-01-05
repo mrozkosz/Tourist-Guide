@@ -32,6 +32,10 @@ class UsersController {
             order: [[sortBy, order]]
         });
 
+        if (!users) {
+            return res.sendStatus(HttpStatuses.NOT_FOUND);
+        }
+
         const totalPages = Math.ceil(users.count / limit);
 
         return res.send({ totalPages, data: users.rows });

@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct MapResponseModel : Decodable {
     let totalPages : Int
     let data: [MapDataModel]

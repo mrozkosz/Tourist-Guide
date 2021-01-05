@@ -23,7 +23,7 @@ struct SearchPage: View {
                 ScrollView{
                     
                     HStack {
-                        Text("Wyniki wyszukiwania")
+                        Text("Search Results")
                             .frame(alignment: .leading)
                             .font(.headline)
                             .foregroundColor(.gray)
@@ -49,7 +49,9 @@ struct SearchPage: View {
                     
                     Group{
                         HStack {
-                            Text("Znaleziono \(self.beaconsVM.beaconsModel.count) miejsc wartych odwiedzenia").foregroundColor(.gray)
+                            if(self.beaconsVM.beaconsModel.count>0){
+                            Text("Found \(self.beaconsVM.beaconsModel.count) places you must visit").foregroundColor(.gray)
+                            }
                             Spacer()
                         }.padding()
                         

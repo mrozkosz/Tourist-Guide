@@ -8,7 +8,7 @@
 
 import XCTest
 
-class Tests: XCTestCase {
+class LoginTests: XCTestCase {
 
     private var app:XCUIApplication!
     
@@ -17,19 +17,30 @@ class Tests: XCTestCase {
         self.app = XCUIApplication()
         self.app.launch()
     }
-
-
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
-        app.launch()
-
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func login() {
+        
+        let emailField = self.app.textFields["emailField"]
+        emailField.tap()
+        emailField.typeText("admin@wp.pl")
+        
+        let passwordField = self.app.secureTextFields["passwordField2"]
+        passwordField.tap()
+        passwordField.typeText("qwerty")
+        
+        let loginButton = self.app.buttons["loginButton"]
+        loginButton.tap()
+        
+        
+        let errorMessage = self.app.staticTexts["errorMessage"]
+        
+      XCTAssertNotNil(errorMessage)
     }
 
+   
+
     func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
+        if #available(iOS 13.0, *) {
             // This measures how long it takes to launch your application.
             measure(metrics: [XCTApplicationLaunchMetric()]) {
                 XCUIApplication().launch()

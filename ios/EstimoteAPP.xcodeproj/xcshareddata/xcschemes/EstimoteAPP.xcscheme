@@ -57,6 +57,11 @@
                BlueprintName = "Tests"
                ReferencedContainer = "container:EstimoteAPP.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "LoginTests/testLaunchPerformance()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

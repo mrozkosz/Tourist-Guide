@@ -9,7 +9,7 @@ const config = {
     public: env('PUBLIC_URL'),
     db: {
         url: env('DATABASE_URL'),
-        logging: isEnabled('SEQUELIZE_LOGGING') ? console.log : false,
+        logging: isEnabled('SEQUELIZE_LOGGING') ? false : false,
         define: {
             charset: 'utf8',
             collate: 'utf8_unicode_ci',

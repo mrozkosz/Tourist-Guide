@@ -8,4 +8,4 @@
 import Foundation
 
 
-var baseUrl     = "http://192.168.2.10:3001"
+var baseUrl     = "http://77.55.214.2:8080"

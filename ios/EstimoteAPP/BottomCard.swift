@@ -24,14 +24,14 @@ struct BottomCard: View {
                         .cornerRadius(3)
                         .opacity(0.1)
                     HStack() {
-                        Text("W Twojej okolicy")
+                        Text("In your neighbourhood")
                             .font(.system(size: 22))
                             .bold()
                         Spacer()
                     }
                     
                     HStack() {
-                        Text("Odnalezione pozycje")
+                        Text("Items found")
                             .font(.callout)
                             .foregroundColor(Color.gray)
                         Spacer()
